@@ -161,52 +161,37 @@ function updateSelectionBorder() {
     });
 }
 
+function rgbToHex(rgb) {
+    var parts = rgb.substring(rgb.indexOf('(') + 1, rgb.length - 1).split(', ').slice(0, 3);
+
+    return '#' + _.map(parts, function(part) {
+        var hex = parseInt(part).toString(16);
+        return (hex.length == 1 ? '0' : '') + hex;
+    }).join('');
+}
+
 var backgroundProperty = {
     'type': 'color',
-    'getter': function($el) {
-        var rgbcolor = $el.css("background-color");
-        var length = rgbcolor.length;
-        var rgb = rgbcolor.substring(4, length-1).split(", ");
-        var red = parseInt(rgb[0]);
-        var green = parseInt(rgb[1]);
-        var blue = parseInt(rgb[2]);
-        return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
-    },
-    'setter': function($el, val) {$el.css("background-color", val);}
+    'getter': function($el) { return rgbToHex($el.css('background-color')); },
+    'setter': function($el, val) { $el.css("background-color", val); }
 };
 
 var widthProperty = {
     'type': 'int',
-    'getter': function($el) {
-        return $el.css("width");
-    },
-    'setter': function($el, val) {
-        $el.css("width", val);
-    }
+    'getter': function($el) { return $el.css("width"); },
+    'setter': function($el, val) { $el.css("width", val); }
 };
 
 var heightProperty =  {
     'type': 'int',
-    'getter': function($el) {
-        return $el.css("height");
-    },
-    'setter': function($el, val) {
-        $el.css("height", val);
-    }
+    'getter': function($el) { return $el.css("height"); },
+    'setter': function($el, val) { $el.css("height", val); }
 };
 
 var colorProperty = {
     'type': 'color',
-    'getter': function($el) {
-        var rgbcolor = $el.css("color");
-        var length = rgbcolor.length;
-        var rgb = rgbcolor.substring(4, length-1).split(", ");
-        var red = parseInt(rgb[0], 10);
-        var green = parseInt(rgb[1], 10);
-        var blue = parseInt(rgb[2], 10);
-        return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
-    },
-    'setter': function($el, val) {$el.css("color", val);}
+    'getter': function($el) { return rgbToHex($el.css('color')); },
+    'setter': function($el, val) { $el.css("color", val); }
 };
 
 var elementProperties = {
@@ -217,6 +202,7 @@ var elementProperties = {
 		'color':colorProperty
 	},
 	'label': {
+		'background':backgroundProperty,
 		'color': colorProperty
 	},
 	'image': {
