@@ -1,2 +1,4 @@
 env/
 *.pyc
+saveapps/indices.txt
+saveapps/static/saved/
