@@ -55,7 +55,8 @@ button, input, select, textarea {
     background: #ddd;
 }
 
-.stoof {
-    color:red;
-    background-color:yellow;
+.btn-lg {
+    margin-top:5px;
+    max-height:40px;
+    width:150px;
 }
