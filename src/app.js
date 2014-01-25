@@ -1,4 +1,26 @@
 $(function() {
+    $(document).bind('keydown', function(e) {
+        if (e.keyCode == 8) { // Backspace
+            var el = e.target;
+            var tagName = el.tagName.toUpperCase();
+            var elType = tagName == 'INPUT' && el.type.toUpperCase();
+            var doPrevent = false;
+            if (elType == 'TEXT' || elType === 'PASSWORD' || elType == 'FILE' || tagName === 'TEXTAREA') {
+                doPrevent = el.readOnly || el.disabled;
+            } else {
+                doPrevent = true;
+            }
+
+            if (doPrevent) {
+                if ($selectedElement) {
+                    $selectedElement.remove();
+                    selectElement(null);
+                }
+                e.preventDefault();
+            }
+        }
+    });
+
     var $draggables = $('#create-elements .draggable');
     var $canvas = $('#section-canvas');
 
@@ -108,8 +130,14 @@ $(function() {
         }
 
         $selectedElement = $el;
-        $selectedElement.addClass('selected');
-        showProperties($el.data('element-type'), $el);
+
+        if ($selectedElement) {
+            $selectedElement.addClass('selected');
+            showProperties($el.data('element-type'), $el);
+        } else {
+            hideProperties();
+        }
+
         updateSelectionBorder();
     }
 
@@ -207,3 +235,6 @@ function showProperties(elementType, $el) {
 	$("#properties-container").empty().append(table);
 }
 
+function hideProperties() {
+    $('#properties-container').empty();
+}
