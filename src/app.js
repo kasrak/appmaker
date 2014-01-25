@@ -99,9 +99,7 @@ $(function() {
     });
 });
 
-var elementProperties = {
-	'button': {
-		'background': {
+var backgroundProperty = {
 			'type': 'color',
 			'getter': function($el) { 
 				var rgbcolor = $el.css("background-color");
@@ -113,8 +111,9 @@ var elementProperties = {
 				return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
 			},
 			'setter': function($el, val) {$el.css("background-color", val);}
-		},
-		'width': {
+		};
+
+var widthProperty = {
 			'type': 'int',
 			'getter': function($el) { 
 				return $el.css("width");
@@ -122,8 +121,9 @@ var elementProperties = {
 			'setter': function($el, val) {
 				$el.css("width", val);
 			}
-		},
-		'height': {
+		};
+
+var heightProperty =  {
 			'type': 'int',
 			'getter': function($el) { 
 				return $el.css("height");
@@ -131,8 +131,9 @@ var elementProperties = {
 			'setter': function($el, val) {
 				$el.css("height", val);
 			}
-		},
-		'color': {
+		};
+
+var colorProperty = {
 			'type': 'color',
 			'getter': function($el) { 
 				var rgbcolor = $el.css("color");
@@ -144,11 +145,18 @@ var elementProperties = {
 				return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
 			},
 			'setter': function($el, val) {$el.css("color", val);}
-		}
+		};
+
+var elementProperties = {
+	'button': {
+		'background': backgroundProperty,
+		'width': widthProperty,
+		'height': heightProperty,
+		'color': colorProperty
+	},
+	//'label': {
+	//	'background'
 		
-
-
-	}
 };
 
 
@@ -156,7 +164,7 @@ function showProperties(elementType, $el) {
 	var properties = elementProperties[elementType];
 	var table = $("<table>");
 	_.each(properties, function (value, key) {
-		var inputEl = $('<input type="text">').val(value.getter($el)).on('input', function() {
+		var inputEl = $('<input class="property-input" type="text">').val(value.getter($el)).on('input', function() {
 			value.setter($el, $(this).val());		
 		});
 

@@ -28,6 +28,10 @@ button, input, select, textarea {
     width: 200px;
 }
 
+.property-input {
+	width: 90px;
+}
+
 #section-editor {
     position: absolute;
     top: 60px;
