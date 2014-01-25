@@ -3,7 +3,7 @@ function runApp() {
 
     window.actions = {};
 
-    window.element = function(identifier) {
+    window.element = window.el = function(identifier) {
         return $('*[data-element-id="' + identifier.replace(/"/g, '\\"') + '"]');
     };
 

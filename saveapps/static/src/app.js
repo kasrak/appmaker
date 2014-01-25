@@ -31,7 +31,7 @@ $(function() {
         }
     });
 
-    $('#section-toolbar .run').on("click", function () {
+    $('#section-toolbar .run').on('click', function () {
         var jsCode = codeEditor.getValue();
         var htmlCode = $canvas.html();
 

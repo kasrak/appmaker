@@ -33,3 +33,7 @@ body.app-container #current-selection {
     background-color:#165A63;
     color: #FAFAFA;
 }
+
+.app button:hover {
+    background-color:#4A9CEE;
+}
