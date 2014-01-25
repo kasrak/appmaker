@@ -40,7 +40,6 @@
 
     </div>
     <div id="section-sidebar">
-        <p style="color:#222222">Your new app id is: {{file_num}}</p>
         <div id="create-elements">
             <h3>Elements</h3>
 
@@ -58,7 +57,7 @@
             </div>
         </div>
 
-                <br/>
+        <br/>
 
 
         <div id="view-properties">
@@ -77,7 +76,7 @@
     </div>
     <div id="section-editor">
         <div id="section-canvas" class="app">
-            <div id="current-selection"></div>
+            {{app_html|safe}}
         </div>
         <div id="section-code">
         </div>

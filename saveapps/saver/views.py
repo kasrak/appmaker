@@ -14,6 +14,7 @@ def SaveContent(request):
         d = {}
 
         file_num = get_next_file_number()
+        d['file_num'] = file_num
 
         if 'js' in request.POST.keys():
             d['js'] = make_js(request.POST['js'], file_num)
@@ -25,8 +26,22 @@ def SaveContent(request):
 
         return HttpResponse(data, mimetype='application/json')
 
-def EditContent(request):
-    pass
+def EditApp(request, app_id):
+    #add js as hidden textarea; make apps accessible via simple urls
+    num = get_next_file_number()
+    # load file.txt corresponding to app_id, and add it to 'app_html' key in the dict, if it exists. if not:
+    # <div id="current-selection"></div>
+
+    try:
+        html_to_add = open("static/saved/" + str(app_id) + ".txt").read()
+    except:
+        html_to_add = "<div id=\"current-selection\"></div>"
+
+    return render_to_response('index.html', {'file_num': num, 'app_html': html_to_add}) 
+
+def ViewApp(request, app_id):
+    app_to_view = str(app_id) + ".html"
+    return render_to_response(app_to_view, {}) 
 
 def get_next_file_number():
     with open('indices.txt', 'r+') as f:
