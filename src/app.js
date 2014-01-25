@@ -118,6 +118,7 @@ $(function() {
 
     $canvas.on('click', function(e){
         if (!$(e.target).hasClass('element')) {
+            selectElement(null);
             return true;
         }
 
