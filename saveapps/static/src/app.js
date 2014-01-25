@@ -396,6 +396,7 @@ function showProperties($el) {
                     var response = e.srcElement;
                     if (response.status == 200) {
                         $el.attr('src', '/' + response.response);
+                        $el.css('background', 'transparent');
                     } else {
                         alert('Uploading failed! Please try again.');
                         console.log(response);
