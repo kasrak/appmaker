@@ -7,9 +7,20 @@ function runApp() {
         return $('*[data-element-id="' + identifier.replace(/"/g, '\\"') + '"]');
     };
 
-    $('.app').on('click', function(e) {
-        console.log('HANDLE CLICK');
-    });
+    function trigger(eventType) {
+        return function(e) {
+            var action = $(e.target).data('action-' + eventType);
+            if (action && window.actions[action]) {
+                window.actions[action].call($(e.target), e);
+            }
+        };
+    }
+
+    // Event handlers
+    $('.app').on('click', trigger('click'));
+    $('.app').on('input', trigger('input'));
+    $('.app').on('blur', trigger('blur'));
+    $('.app').on('focus', trigger('focus'));
 }
 
 function stopApp() {

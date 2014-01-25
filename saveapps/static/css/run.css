@@ -1,5 +1,6 @@
 body.app-container {
     text-align: center;
+    background: #fafafa;
 }
 
 body.app-container .app {
@@ -14,10 +15,14 @@ body.app-container #current-selection {
 }
 
 .app {
-    background: #fff;
+    background: #fafafa;
     font: 16pt/1.6 Helvetica, Arial, sans-serif;
 }
 
 .app input, .app button, .app textarea, .app select {
     font: inherit;
+}
+
+.app .element {
+    position: absolute;
 }
