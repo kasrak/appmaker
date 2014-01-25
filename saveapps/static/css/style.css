@@ -76,11 +76,9 @@ button, input, select, textarea {
     top: 0;
     bottom: 0;
     width: 50%;
-    background: #fff;
     border-left: 1px solid #aaa;
     border-right: 1px solid #aaa;
     overflow: hidden;
-    font-size: 16pt;
 }
 
 img.element {

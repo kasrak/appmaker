@@ -1,0 +1,23 @@
+body.app-container {
+    text-align: center;
+}
+
+body.app-container .app {
+    text-align: left;
+    width: 700px;
+    margin: 20px auto;
+    position: relative;
+}
+
+body.app-container #current-selection {
+    display: none !important;
+}
+
+.app {
+    background: #fff;
+    font: 16pt/1.6 Helvetica, Arial, sans-serif;
+}
+
+.app input, .app button, .app textarea, .app select {
+    font: inherit;
+}
