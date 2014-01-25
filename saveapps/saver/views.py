@@ -38,7 +38,7 @@ def EditApp(request, app_id):
     try:
         js_to_add = open("static/saved/" + str(app_id) + ".js").read()
     except:
-        js_to_add = "Couldn't find JS"
+        js_to_add = ""
 
     return render_to_response('index.html', {'file_num': num, 'app_html': html_to_add, 'app_js': js_to_add}) 
 
