@@ -194,25 +194,38 @@ var colorProperty = {
     'setter': function($el, val) { $el.css("color", val); }
 };
 
+var textProperty = {
+	'type': 'text',
+	'getter': function($el) { return $el.text();},
+	'setter': function($el, val) { $el.text(val);}
+};
+
 var elementProperties = {
 	'button': {
+		'text':textProperty,
 		'background':backgroundProperty,
 		'width':widthProperty,
 		'height':heightProperty,
 		'color':colorProperty
 	},
 	'label': {
+		'text':textProperty,
 		'background':backgroundProperty,
 		'color': colorProperty
 	},
 	'image': {
 		'width':widthProperty,
-		'height':heightProperty
+		'height':heightProperty,
+		'source':{'type': 'text',
+			'getter': function($el) {},
+			'setter': function($el, val) {}
+			}
 	},
 	'text': {
 		'width': widthProperty,
 		'height': heightProperty
 	}
+
 };
 
 
