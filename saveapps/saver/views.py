@@ -5,10 +5,11 @@ from django.conf import settings
 import json
 import os
 
+DEFAULT_HTML = '<div id="current-selection"></div>'
+
 # Create your views here.
 def Display(request):
-    num = get_next_file_number()
-    return render_to_response('index.html', {'file_num': num})
+    return render_to_response('index.html', { 'app_html': DEFAULT_HTML, 'app_js': '' })
 
 def SaveContent(request):
     if request.method == 'POST':
@@ -28,25 +29,21 @@ def SaveContent(request):
         return HttpResponse(data, mimetype='application/json')
 
 def EditApp(request, app_id):
-    #add js as hidden textarea
-    num = get_next_file_number()
-
     try: # if exists
         html_to_add = open(new_file_name(app_id, 'txt')[0]).read()
     except:
-        html_to_add = "<div id=\"current-selection\"></div>"
+        html_to_add = DEFAULT_HTML
 
     try:
         js_to_add = open(new_file_name(app_id, 'js')[0]).read()
     except:
         js_to_add = ""
 
-    return render_to_response('index.html', {'file_num': num, 'app_html': html_to_add, 'app_js': js_to_add}) 
+    return render_to_response('index.html', {'app_html': html_to_add, 'app_js': js_to_add})
 
 def ViewApp(request, app_id):
     app_to_view = str(app_id) + ".html"
-    return render_to_response(app_to_view, {}) 
-
+    return render_to_response(app_to_view, {})
 
 def ImageUpload(request):
     pass
