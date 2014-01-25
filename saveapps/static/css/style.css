@@ -136,3 +136,7 @@ img.element {
 .fa {
     font-size:0.8em;
 }
+
+#app-js-code {
+    display:none;
+}
