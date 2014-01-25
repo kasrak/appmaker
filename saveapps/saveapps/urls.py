@@ -10,6 +10,6 @@ urlpatterns = patterns('',
 
     url (r'^/*$', 'saver.views.Display'),
 
-    url(r'^save/(\w{2,4})/*$', 'saver.views.SaveJS'),
+    url(r'^save', 'saver.views.SaveContent'),
     url(r'^admin/', include(admin.site.urls)),
 )
