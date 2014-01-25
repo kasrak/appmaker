@@ -373,12 +373,23 @@ function showProperties($el) {
     _.each(properties, function (value, key) {
 	var inputEl;
 	if (value.type == 'file') {
-		inputEl = $('<input type="file">')
-			  .addClass('form-control')
-			  .on('change', function() {
-				console.log("CHANGED");
-				
-			  });
+        inputEl = $('<input type="file">')
+        .addClass('form-control')
+        .on('change', function() {
+            var formData = new FormData();
+            var file = this.files[0];
+            formData.append(file.name, file);
+
+            $(this).prop('disabled', true);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload', true);
+            xhr.onload = function(e) {
+                $(this).prop('disabled', false);
+                console.log('upload done', e);
+            };
+            xhr.send(formData);
+        });
 	} else {
 		inputEl = $('<input type="text">')
 		.addClass('form-control')
