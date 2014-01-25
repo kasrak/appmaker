@@ -1,4 +1,14 @@
 $(function() {
+    var $draggables = $('#create-elements .draggable');
+    var $canvas = $('#section-canvas');
+    $currentSelectionBorder = $('#current-selection');
+
+    var codeEditor = CodeMirror($('#section-code')[0], {
+        value: "",
+        mode: "javascript",
+        lineNumbers: true
+    });
+
     $(document).bind('keydown', function(e) {
         if (e.keyCode == 8) { // Backspace
             var el = e.target;
@@ -21,23 +31,14 @@ $(function() {
         }
     });
 
-
     $('#section-toolbar .run').on("click", function () {
+        var jsCode = codeEditor.getValue();
+        var htmlCode = $canvas.html();
+
         $.post('http://127.0.0.1:8000/save/html', { 'html': '<p>Test</p>' }, function(response){
             // process response
             console.log(response);
-        })
-    });
-
-    var $draggables = $('#create-elements .draggable');
-    var $canvas = $('#section-canvas');
-
-    $currentSelectionBorder = $('#current-selection');
-
-    var myCodeMirror = CodeMirror($('#section-code')[0], {
-        value: "function() {\n  var x = true;\n  var y = 0;\n}",
-        mode: "javascript",
-        lineNumbers: true
+        });
     });
 
     $draggables.forEach(function(draggable) {
