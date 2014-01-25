@@ -4,8 +4,6 @@ $(function() {
     var $toolbarRunButton = $('#section-toolbar button.run');
     var $toolbarStopButton = $('#section-toolbar button.stop');
 
-    $currentSelectionBorder = $('#current-selection');
-
     var codeEditor = CodeMirror($('#section-code')[0], {
         value: "",
         mode: "javascript",
@@ -48,6 +46,9 @@ $(function() {
     var appIsRunning = false;
     function setRunningUI(isRunning) {
         appIsRunning = isRunning;
+
+        selectElement(null);
+
         $toolbarRunButton.prop('disabled', isRunning);
         $toolbarStopButton.prop('disabled', !isRunning);
     }
@@ -85,7 +86,7 @@ $(function() {
     var movingOffset;
     $canvas.on('mousedown', function(e) {
         var $el = $(e.target);
-        if (!$el.hasClass('element')) return;
+        if (!$el.hasClass('element') || appIsRunning) return;
         $movingElement = $el;
         movingOffset = { x: e.offsetX, y: e.offsetY };
 
@@ -118,7 +119,7 @@ $(function() {
 
         var elementType = e.dataTransfer.getData('text/plain');
 
-        if (!elementType) {
+        if (!elementType || appIsRunning) {
             return;
         }
 
@@ -152,6 +153,10 @@ $(function() {
     });
 
     $canvas.on('click', function(e){
+        if (appIsRunning) {
+            return true;
+        }
+
         if (!$(e.target).hasClass('element')) {
             selectElement(null);
             return true;
@@ -180,9 +185,9 @@ $(function() {
 
 });
 
-var $currentSelectionBorder;
 var $selectedElement;
 function updateSelectionBorder() {
+    var $currentSelectionBorder = $('#current-selection');
     if (!$selectedElement) {
         $currentSelectionBorder.hide();
         return false;
