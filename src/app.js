@@ -73,7 +73,7 @@ $(function() {
                 top: e.pageY - pos.top - movingOffset.y
             });
 
-            if ($movingElement[0] == $selectedElement[0]) {
+            if ($selectedElement && $movingElement[0] == $selectedElement[0]) {
                 updateSelectionBorder();
             }
         }
