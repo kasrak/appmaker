@@ -162,13 +162,13 @@ var elementProperties = {
 
 function showProperties(elementType, $el) {
 	var properties = elementProperties[elementType];
-	var table = $("<table>");
+	var table = $("<div>");
 	_.each(properties, function (value, key) {
-		var inputEl = $('<input class="property-input" type="text">').val(value.getter($el)).on('input', function() {
+		var inputEl = $('<input class="form-control" type="text">').val(value.getter($el)).on('input', function() {
 			value.setter($el, $(this).val());		
 		});
-
-		var tr = $("<tr><td>" + key + "</td><td class='input-container'></td></tr>");
+		var key = key.charAt(0).toUpperCase() + key.substring(1);
+		var tr = $("<div>" + key + "<br/><div class='input-container'></div></div>");
 		$('.input-container', tr).append(inputEl);
 		table.append(tr);
 	});
