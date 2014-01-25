@@ -377,16 +377,23 @@ function showProperties($el) {
         .addClass('form-control')
         .on('change', function() {
             var formData = new FormData();
+            var $input = $(this);
             var file = this.files[0];
             formData.append('file', file);
 
-            $(this).prop('disabled', true);
+            $input.prop('disabled', true);
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/upload', true);
             xhr.onload = function(e) {
-                $(this).prop('disabled', false);
-                console.log('upload done', e);
+                $input.prop('disabled', false);
+                var response = e.srcElement;
+                if (response.status == 200) {
+                    $el.attr('src', '/' + response.response);
+                } else {
+                    alert('Uploading failed! Please try again.');
+                    console.log(response);
+                }
             };
             xhr.send(formData);
         });
