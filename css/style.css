@@ -1,3 +1,51 @@
 body {
     background: #fafafa;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#section-toolbar {
+    padding: 20px;
+    background: #222;
+    color: #fafafa;
+    height: 20px;
+}
+
+#section-sidebar {
+    background: #ddd;
+    padding: 20px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 60px;
+    overflow: auto;
+    width: 200px;
+}
+
+#section-main {
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 240px;
+    right: 0;
+}
+
+#section-canvas {
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background: #fff;
+}
+
+#section-code {
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    background: #ddd;
 }
