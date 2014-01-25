@@ -89,10 +89,8 @@ $(function() {
         });
     }
 
-    var appIsRunning = false;
+    var scriptId = 'running-app-code';
     function setRunningUI(isRunning) {
-        appIsRunning = isRunning;
-
         selectElement(null);
 
         $toolbarRunButton.prop('disabled', isRunning);
@@ -102,17 +100,27 @@ $(function() {
     $toolbarRunButton.on('click', function () {
         saveApp(function(response) {
             setRunningUI(true);
+            runner.runApp();
+
+            // Load the js
+            var script = $('<script>').attr({
+                'src': '/' + response.js,
+                'id': scriptId
+            });
+
+            $('body').append(script);
         });
     });
 
     $toolbarStopButton.on('click', function() {
+        runner.stopApp();
+        $('#' + scriptId).remove();
         setRunningUI(false);
         $canvas.html(savedHTMLCode);
     });
 
     $toolbarPublishButton.on('click', function() {
         saveApp(function(response) {
-            debugger;
             window.location = window.location.origin + '/' + response['html'];
         });
     });
@@ -138,7 +146,7 @@ $(function() {
     var movingOffset;
     $canvas.on('mousedown', function(e) {
         var $el = $(e.target);
-        if (!$el.hasClass('element') || appIsRunning) return;
+        if (!$el.hasClass('element') || runner.isAppRunning()) return;
         $movingElement = $el;
         movingOffset = { x: e.offsetX, y: e.offsetY };
 
@@ -171,7 +179,7 @@ $(function() {
 
         var elementType = e.dataTransfer.getData('text/plain');
 
-        if (!elementType || appIsRunning) {
+        if (!elementType || runner.isAppRunning()) {
             return;
         }
 
@@ -205,7 +213,7 @@ $(function() {
     });
 
     $canvas.on('click', function(e){
-        if (appIsRunning) {
+        if (runner.isAppRunning()) {
             return true;
         }
 
