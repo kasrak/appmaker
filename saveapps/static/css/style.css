@@ -17,8 +17,14 @@ button, input, select, textarea {
     height: 20px;
 }
 
+#section-toolbar .btn-group {
+    margin-right: 10px;
+}
+
 #section-toolbar .btn-group.right {
     float: right;
+    margin-left: 10px;
+    margin-right: 0;
 }
 
 #section-toolbar .btn {

@@ -4,6 +4,7 @@ $(function() {
     var $toolbarRunButton = $('#section-toolbar button.run');
     var $toolbarStopButton = $('#section-toolbar button.stop');
     var $toolbarPublishButton = $('#section-toolbar button.publish');
+    var $toolbarNewButton = $('#section-toolbar button.new');
 
     var codeEditor = CodeMirror($('#section-code')[0], {
         value: $('#app-js-code').val(),
@@ -36,8 +37,8 @@ $(function() {
 
     var waiting;
     codeEditor.on("change", function() {
-    	clearTimeout(waiting);
-    	waiting = setTimeout(updateHints, 1000);
+        clearTimeout(waiting);
+        waiting = setTimeout(updateHints, 1000);
     });
 
     setTimeout(updateHints, 100);
@@ -121,6 +122,10 @@ $(function() {
         saveApp(function(response) {
             window.location = window.location.origin + '/' + response['file_num'];
         });
+    });
+
+    $toolbarNewButton.on('click', function() {
+        window.location = window.location.origin;
     });
 
     $draggables.forEach(function(draggable) {
