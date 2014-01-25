@@ -82,7 +82,10 @@ $(function() {
                 'js': jsCode
             },
             'dataType': 'json',
-            'success': callback,
+            'success': function(response) {
+                history.pushState({file_num: response.file_num},"",'edit/' + response.file_num);
+                callback(response);
+            },
             'error': function() {
                 alert('Saving failed! Please try again.');
             }
