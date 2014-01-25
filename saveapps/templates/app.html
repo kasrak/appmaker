@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <title>App</title>
 
+    <base href="/">
+    <script type="text/javascript" src="static/lib/lodash.min.js"></script>
+    <script type="text/javascript" src="static/lib/zepto.min.js"></script>
     <link rel="stylesheet" href="/static/css/run.css" />
 </head>
 <body class="app-container">
     <div class="app">
-        {{ app_html }}
+        {{ app_html|safe }}
     </div>
+
+    <script type="text/javascript" src="static/src/run.js"></script>
+    <script type="text/javascript">
+        runApp();
+    </script>
+    <script type="text/javascript" src="{{ js_url }}"></script>
 </body>
 </html>

@@ -35,8 +35,10 @@ $(function() {
         var jsCode = codeEditor.getValue();
         var htmlCode = $canvas.html();
 
-        $.post('http://127.0.0.1:8000/save/html', { 'html': '<p>Test</p>' }, function(response){
-            // process response
+        $.post('http://127.0.0.1:8000/save', {
+            'html': htmlCode,
+            'js': jsCode
+        }, function(response){
             console.log(response);
         });
     });

@@ -1,5 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 import json
 import os
 
@@ -8,34 +9,52 @@ def Display(request):
 	return render_to_response('index.html', {})
 
 def SaveContent(request):
-	if request.method == 'POST':
-		d = {}
-		if 'html' in request.POST.keys():
-			d['html'] = make_file(request, 'html')
-		elif 'js' in request.POST.keys():
-			d['js'] = make_file(request, 'js')
+    if request.method == 'POST':
+        d = {}
 
-		data = json.dumps(d)
+        file_num = get_next_file_number()
 
-		return HttpResponse(data, mimetype='application/json')
+        if 'js' in request.POST.keys():
+            d['js'] = make_js(request.POST['js'], file_num)
 
-def make_file(request, file_type):
-	content = request.POST[file_type]
-	to_create_name = get_new_file_name(request, file_type)
-	to_create = open('static/saved/' + to_create_name, 'w')
-	to_create.write(content)
-	to_create.close()
-	return to_create_name
+            if 'html' in request.POST.keys():
+                d['html'] = make_html(request.POST['html'], d['js'], file_num)
 
-def get_new_file_name(request, file_type):
-	index_tracker = open('indices.txt', 'r+')
-	index = index_tracker.read()
-	
-	new_file_name = file_type + str(index) + "." + file_type
-	
-	new_index = int(index) + 1
-	index_tracker.seek(0)
-	index_tracker.write(str(new_index))
-	index_tracker.truncate()
-	index_tracker.close()
-	return new_file_name
+        data = json.dumps(d)
+
+        return HttpResponse(data, mimetype='application/json')
+
+def get_next_file_number():
+    with open('indices.txt', 'r+') as f:
+        num = int(f.readline())
+        f.seek(0)
+        f.write(str(num + 1))
+        f.truncate()
+
+    return num
+
+def make_html(html, js_url, file_num):
+    # Raw
+    with open(new_file_name(file_num, 'raw'), 'w') as f:
+        f.write(html)
+
+    # HTML
+    rendered = render_to_string('app.html', {
+        'app_html': html,
+        'js_url': js_url
+    })
+
+    name = new_file_name(file_num, 'html')
+    with open(name, 'w') as f:
+        f.write(rendered)
+
+    return name
+
+def make_js(js, file_num):
+    name = new_file_name(file_num, 'js')
+    with open(name, 'w') as f:
+        f.write(js)
+    return name
+
+def new_file_name(num, ext):
+    return 'static/saved/%s.%s' % (str(num), ext)
