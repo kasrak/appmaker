@@ -47,6 +47,7 @@
         </div>
 
     </div>
+    
     <div id="section-sidebar">
 
         <div id="create-elements">
@@ -90,35 +91,6 @@
         </div>
     </div>
 
-
-    <form role="form" action="" method="post" class="form" enctype="multipart/form-data">
-        {% csrf_token %}
-            <div class = "row">
-                <div class = "col-lg-4">
-                    <fieldset disabled>
-                        <div class="form-group">
-                           <!-- <input class="form-control" type="text" placeholder="Your UTOR Email Address"> -->
-                             <label for="disabledSelect"><i class = "fa fa-envelope"></i> Your UTOR Email address</label>
-                             <input class="form-control" id="disabledInput" type="text" placeholder="{{student.username}}" disabled>
-                        </div>
-                     </fieldset>
-                        <div class="form-group">
-                            <label for="disabledSelect"><i class = "fa fa-user"></i> Your Display Name [optional]</label>
-                            {% if nameError %} <p style="color:#982727;"><small>{{nameError}}</small></p>{% endif %}
-                            {{ form.name|attr:"type:text"|attr:"id:name"|attr:"placeholder:Full Name"|attr:"title:Your Display Name"|attr:"tabindex:1"|attr:"class:form-control" }}
-                        </div>
-
-                        <div class="form-group">
-                            <label for="disabledSelect"><i class = "fa fa-lock"></i> Choose a new password [optional]</label>
-                            {% if passwordError %} <p style="color:#982727;"><small>{{passwordError}}</small></p>{% endif %}
-                            {{ form.password1|attr:"type:password"|attr:"id:password1"|attr:"placeholder:New Password"|attr:"title:Choose a new password"|attr:"tabindex:1"|attr:"class:form-control" }}
-                            {{ form.password2|attr:"type:password"|attr:"id:password2"|attr:"class:form-control"|attr:"placeholder:Enter it again"|attr:"title:Enter your new password again"|attr:"tabindex:1"|attr:"style:margin-top:5px;" }}
-                        </div>
-                        <p><input type="submit" value="Update Info"></p>
-
-                </div>
-            </div>
-    </form>
 
 </body>
 </html>

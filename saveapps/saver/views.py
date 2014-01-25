@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.conf import settings
 import json
-import os
+import os, random
 
 DEFAULT_HTML = '<div id="current-selection"></div>'
 
@@ -49,13 +49,17 @@ def ViewApp(request, app_id):
 def ImageUpload(request):
     image = "Asdf"
     if request.method == "POST":
-        image = request.files['imgz']
-        new = open(image.title,'w')
-        new.write(image.open().read())
-        new.close()
-    return HttpResponse(image)
+        print (request.FILES)
+        image = request.FILES['file']
+        filename = '%d.%s' % (random.randint(1, 999999999), 'png')
+        fileurl = 'static/img/%s' % filename
+        filepath = os.path.join(settings.BASE_DIR, fileurl)
+        with open(filepath, 'wb+') as destination:
+            for chunk in image.chunks():
+                destination.write(chunk)
+    return HttpResponse(fileurl)
 
-    
+
 def get_next_file_number():
     name = os.path.join(settings.BASE_DIR, 'writable/indices.txt')
     if not os.path.exists(name):

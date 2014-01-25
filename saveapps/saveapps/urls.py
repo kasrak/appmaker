@@ -11,7 +11,7 @@ urlpatterns = patterns('',
 
     url (r'^/*$', 'saver.views.Display'),
 
-    url (r'^/*$', 'saver.views.Display'),
+    url (r'^upload/*$', 'saver.views.ImageUpload'),
     url (r'^edit/(\d+)*$', 'saver.views.EditApp'),
     url (r'^(\d+)*$', 'saver.views.ViewApp'),
     url(r'^save', 'saver.views.SaveContent'),

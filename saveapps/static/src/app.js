@@ -378,7 +378,7 @@ function showProperties($el) {
         .on('change', function() {
             var formData = new FormData();
             var file = this.files[0];
-            formData.append(file.name, file);
+            formData.append('file', file);
 
             $(this).prop('disabled', true);
 
