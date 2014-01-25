@@ -29,7 +29,12 @@ def EditContent(request):
     pass
 
 def get_next_file_number():
-    with open('indices.txt', 'r+') as f:
+    name = 'indices.txt'
+    if not os.path.exists(name):
+        with open(name, 'w') as f:
+            f.write('0')
+
+    with open(name, 'r+') as f:
         num = int(f.readline())
         f.seek(0)
         f.write(str(num + 1))
