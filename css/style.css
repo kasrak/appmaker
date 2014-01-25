@@ -47,6 +47,15 @@ button, input, select, textarea {
 
 #view-properties {
     margin-top: 20px;
+    display: none;
+}
+
+#view-id {
+    margin: 5px 0 10px 0;
+}
+
+#properties-container {
+    margin-bottom: 10px;
 }
 
 .property-input {

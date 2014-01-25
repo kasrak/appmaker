@@ -108,6 +108,7 @@ $(function() {
         }
 
         element.data('element-type', elementType);
+        element.data('element-id', '');
         element.addClass('element');
         element.css({ top: e.offsetY, left: e.offsetX });
 
@@ -137,7 +138,7 @@ $(function() {
 
         if ($selectedElement) {
             $selectedElement.addClass('selected');
-            showProperties($el.data('element-type'), $el);
+            showProperties($el);
         } else {
             hideProperties();
         }
@@ -234,9 +235,28 @@ var elementProperties = {
 
 };
 
+var elementActions = {
+    'button': ['click'],
+    'label': ['click'],
+    'image': ['click'],
+    'text': ['click', 'focus', 'blur', 'input']
+};
 
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.substring(1);
+}
 
-function showProperties(elementType, $el) {
+function showProperties($el) {
+    $('#view-properties').show();
+
+    var elementType = $el.data('element-type');
+
+    // Identifier
+    $('#view-id').off('input').val($el.data('element-id')).on('input', function() {
+        $el.data('element-id', $(this).val());
+    });
+
+    // Properties
 	var properties = elementProperties[elementType];
 	var table = $("<div>");
 	_.each(properties, function (value, key) {
@@ -247,14 +267,29 @@ function showProperties(elementType, $el) {
 			value.setter($el, $(this).val());
             updateSelectionBorder();
 		});
-		var key = key.charAt(0).toUpperCase() + key.substring(1);
-		var tr = $("<div>" + key + "<br/><div class='input-container'></div></div>");
+		var tr = $("<div>" + capitalize(key) + "<br><div class='input-container'></div></div>");
 		$('.input-container', tr).append(inputEl);
 		table.append(tr);
 	});
 	$("#properties-container").empty().append(table);
+
+    // Actions
+    var actions = elementActions[elementType];
+    var actionsEl = $("<div>");
+    _.each(actions, function(key) {
+        var inputEl = $('<input type="text">')
+        .addClass('form-control')
+        .val($el.data('action-' + key) || '')
+        .on('input', function() {
+            $el.data('action-' + key, $(this).val());
+        });
+        var el = $('<div>' + capitalize(key) + '<br><div class="input-container"></div></div>');
+        $('.input-container', el).append(inputEl);
+        actionsEl.append(el);
+    });
+    $("#actions-container").empty().append(actionsEl);
 }
 
 function hideProperties() {
-    $('#properties-container').empty();
+    $('#view-properties').hide();
 }
