@@ -1,7 +1,9 @@
 $(function() {
     var $draggables = $('#create-elements .draggable');
     var $canvas = $('#section-canvas');
-    $currentSelectionBorder = $('#current-selection');
+    var $toolbarRunButton = $('#section-toolbar button.run');
+    var $toolbarStopButton = $('#section-toolbar button.stop');
+    var $toolbarPublishButton = $('#section-toolbar button.publish');
 
     var codeEditor = CodeMirror($('#section-code')[0], {
         value: "",
@@ -67,15 +69,51 @@ $(function() {
         }
     });
 
-    $('#section-toolbar .run').on('click', function () {
+    var savedHTMLCode;
+    function saveApp(callback) {
         var jsCode = codeEditor.getValue();
-        var htmlCode = $canvas.html();
+        var htmlCode = savedHTMLCode = $canvas.html();
 
-        $.post('http://127.0.0.1:8000/save', {
-            'html': htmlCode,
-            'js': jsCode
-        }, function(response){
-            console.log(response);
+        $.ajax({
+            'type': 'POST',
+            'url': 'http://127.0.0.1:8000/save',
+            'data': {
+                'html': htmlCode,
+                'js': jsCode
+            },
+            'dataType': 'json',
+            'success': callback,
+            'error': function() {
+                alert('Saving failed! Please try again.');
+            }
+        });
+    }
+
+    var appIsRunning = false;
+    function setRunningUI(isRunning) {
+        appIsRunning = isRunning;
+
+        selectElement(null);
+
+        $toolbarRunButton.prop('disabled', isRunning);
+        $toolbarStopButton.prop('disabled', !isRunning);
+    }
+
+    $toolbarRunButton.on('click', function () {
+        saveApp(function(response) {
+            setRunningUI(true);
+        });
+    });
+
+    $toolbarStopButton.on('click', function() {
+        setRunningUI(false);
+        $canvas.html(savedHTMLCode);
+    });
+
+    $toolbarPublishButton.on('click', function() {
+        saveApp(function(response) {
+            debugger;
+            window.location = window.location.origin + '/' + response['html'];
         });
     });
 
@@ -100,7 +138,7 @@ $(function() {
     var movingOffset;
     $canvas.on('mousedown', function(e) {
         var $el = $(e.target);
-        if (!$el.hasClass('element')) return;
+        if (!$el.hasClass('element') || appIsRunning) return;
         $movingElement = $el;
         movingOffset = { x: e.offsetX, y: e.offsetY };
 
@@ -133,7 +171,7 @@ $(function() {
 
         var elementType = e.dataTransfer.getData('text/plain');
 
-        if (!elementType) {
+        if (!elementType || appIsRunning) {
             return;
         }
 
@@ -167,6 +205,10 @@ $(function() {
     });
 
     $canvas.on('click', function(e){
+        if (appIsRunning) {
+            return true;
+        }
+
         if (!$(e.target).hasClass('element')) {
             selectElement(null);
             return true;
@@ -174,7 +216,6 @@ $(function() {
 
         selectElement($(e.target));
     });
-
 
     function selectElement($el) {
         if ($selectedElement) {
@@ -195,9 +236,9 @@ $(function() {
 
 });
 
-var $currentSelectionBorder;
 var $selectedElement;
 function updateSelectionBorder() {
+    var $currentSelectionBorder = $('#current-selection');
     if (!$selectedElement) {
         $currentSelectionBorder.hide();
         return false;

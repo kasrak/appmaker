@@ -31,14 +31,24 @@
     <div id="section-toolbar" style="padding:30px;">
 
         <div class="btn-group">
-            <button class="btn btn-primary run" type="button">
+            <button class="btn btn-primary run">
                 <i class ="fa fa-play"></i> Run
+            </button>
+            <button class="btn btn-primary stop" disabled>
+                <i class ="fa fa-stop"></i> Stop
+            </button>
+        </div>
+
+
+        <div class="btn-group right">
+            <button class="btn btn-success publish">
+                Publish
             </button>
         </div>
 
     </div>
     <div id="section-sidebar">
-
+        <p style="color:#222222">Your new app id is: {{file_num}}</p>
         <div id="create-elements">
             <h3>Elements</h3>
 
@@ -55,6 +65,8 @@
                 Text Input <i class = "fa fa-pencil"></i>
             </div>
         </div>
+
+                <br/>
 
 
         <div id="view-properties">
