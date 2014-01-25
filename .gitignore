@@ -2,3 +2,5 @@ env/
 *.pyc
 saveapps/indices.txt
 saveapps/static/saved/
+saveapps/writable/
+*.pid

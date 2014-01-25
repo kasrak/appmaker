@@ -1,6 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.template.loader import render_to_string
+from django.conf import settings
 import json
 import os
 
@@ -31,12 +32,12 @@ def EditApp(request, app_id):
     num = get_next_file_number()
 
     try: # if exists
-        html_to_add = open("static/saved/" + str(app_id) + ".txt").read()
+        html_to_add = open(new_file_name(app_id, 'txt')[0]).read()
     except:
         html_to_add = "<div id=\"current-selection\"></div>"
 
     try:
-        js_to_add = open("static/saved/" + str(app_id) + ".js").read()
+        js_to_add = open(new_file_name(app_id, 'js')[0]).read()
     except:
         js_to_add = ""
 
@@ -47,7 +48,7 @@ def ViewApp(request, app_id):
     return render_to_response(app_to_view, {}) 
 
 def get_next_file_number():
-    name = 'indices.txt'
+    name = os.path.join(settings.BASE_DIR, 'writable/indices.txt')
     if not os.path.exists(name):
         with open(name, 'w') as f:
             f.write('0')
@@ -62,7 +63,7 @@ def get_next_file_number():
 
 def make_html(html, js_url, file_num):
     # Raw
-    with open(new_file_name(file_num, 'txt'), 'w') as f:
+    with open(new_file_name(file_num, 'txt')[0], 'w') as f:
         f.write(html)
 
     # HTML
@@ -72,17 +73,18 @@ def make_html(html, js_url, file_num):
         'file_num': file_num,
     })
 
-    name = new_file_name(file_num, 'html')
+    name, url = new_file_name(file_num, 'html')
     with open(name, 'w') as f:
         f.write(rendered)
 
-    return name
+    return url
 
 def make_js(js, file_num):
-    name = new_file_name(file_num, 'js')
+    name, url = new_file_name(file_num, 'js')
     with open(name, 'w') as f:
         f.write(js)
-    return name
+    return url
 
 def new_file_name(num, ext):
-    return 'static/saved/%s.%s' % (str(num), ext)
+    url = 'static/saved/%s.%s' % (str(num), ext)
+    return (os.path.join(settings.BASE_DIR, url), url)
