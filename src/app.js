@@ -128,68 +128,79 @@ $(function() {
     }
 });
 
+var backgroundProperty = {
+    'type': 'color',
+    'getter': function($el) {
+        var rgbcolor = $el.css("background-color");
+        var length = rgbcolor.length;
+        var rgb = rgbcolor.substring(4, length-1).split(", ");
+        var red = parseInt(rgb[0]);
+        var green = parseInt(rgb[1]);
+        var blue = parseInt(rgb[2]);
+        return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
+    },
+    'setter': function($el, val) {$el.css("background-color", val);}
+};
+
+var widthProperty = {
+    'type': 'int',
+    'getter': function($el) {
+        return $el.css("width");
+    },
+    'setter': function($el, val) {
+        $el.css("width", val);
+    }
+};
+
+var heightProperty =  {
+    'type': 'int',
+    'getter': function($el) {
+        return $el.css("height");
+    },
+    'setter': function($el, val) {
+        $el.css("height", val);
+    }
+};
+
+var colorProperty = {
+    'type': 'color',
+    'getter': function($el) {
+        var rgbcolor = $el.css("color");
+        var length = rgbcolor.length;
+        var rgb = rgbcolor.substring(4, length-1).split(", ");
+        var red = parseInt(rgb[0], 10);
+        var green = parseInt(rgb[1], 10);
+        var blue = parseInt(rgb[2], 10);
+        return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
+    },
+    'setter': function($el, val) {$el.css("color", val);}
+};
 
 var elementProperties = {
 	'button': {
-		'background': {
-			'type': 'color',
-			'getter': function($el) {
-				var rgbcolor = $el.css("background-color");
-				var length = rgbcolor.length;
-				var rgb = rgbcolor.substring(4, length-1).split(", ");
-				var red = parseInt(rgb[0]);
-				var green = parseInt(rgb[1]);
-				var blue = parseInt(rgb[2]);
-				return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
-			},
-			'setter': function($el, val) {$el.css("background-color", val);}
-		},
-		'width': {
-			'type': 'int',
-			'getter': function($el) {
-				return $el.css("width");
-			},
-			'setter': function($el, val) {
-				$el.css("width", val);
-			}
-		},
-		'height': {
-			'type': 'int',
-			'getter': function($el) {
-				return $el.css("height");
-			},
-			'setter': function($el, val) {
-				$el.css("height", val);
-			}
-		},
-		'color': {
-			'type': 'color',
-			'getter': function($el) {
-				var rgbcolor = $el.css("color");
-				var length = rgbcolor.length;
-				var rgb = rgbcolor.substring(4, length-1).split(", ");
-				var red = parseInt(rgb[0], 10);
-				var green = parseInt(rgb[1], 10);
-				var blue = parseInt(rgb[2], 10);
-				return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
-			},
-			'setter': function($el, val) {$el.css("color", val);}
-		}
+		'background': backgroundProperty,
+		'width': widthProperty,
+		'height': heightProperty,
+		'color': colorProperty
+	},
+	'label': {
+		'color': colorProperty
 	}
 };
 
 
 function showProperties(elementType, $el) {
 	var properties = elementProperties[elementType];
-	var table = $("<table>");
+	var table = $("<div>");
 	_.each(properties, function (value, key) {
         var inputEl = $('<input type="text">')
+        .addClass('form-control')
         .val(value.getter($el))
         .on('input', function() {
 			value.setter($el, $(this).val());
 		});
-
-		var tr = $("<tr><td>" + key + "</td><td class='input-container'></td></tr>");
+		var key = key.charAt(0).toUpperCase() + key.substring(1);
+		var tr = $("<div>" + key + "<br/><div class='input-container'></div></div>");
 		$('.input-container', tr).append(inputEl);
 		table.append(tr);
 	});
