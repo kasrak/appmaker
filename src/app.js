@@ -19,12 +19,43 @@ $(function() {
         return false;
     }, false);
 
+    var $movingElement;
+    var movingOffset;
+    $canvas.on('mousedown', function(e) {
+        var $el = $(e.target);
+        if (!$el.hasClass('element')) return;
+        $movingElement = $el;
+        movingOffset = { x: e.offsetX, y: e.offsetY };
+
+        e.preventDefault();
+        return false;
+    });
+
+    $canvas.on('mouseup', function(e) {
+        $movingElement = null;
+    });
+
+    $canvas.on('mousemove', function(e) {
+        var pos = $canvas.offset();
+        if ($movingElement) {
+            $movingElement.css({
+                left: e.pageX - pos.left - movingOffset.x,
+                top: e.pageY - pos.top - movingOffset.y
+            });
+        }
+    });
+
     $canvas[0].addEventListener('drop', function(e) {
         if (e.stopPropagation) {
             e.stopPropagation();
         }
 
         var elementType = e.dataTransfer.getData('text/plain');
+
+        if (!elementType) {
+            return;
+        }
+
         var element;
 
         switch(elementType) {
@@ -35,7 +66,7 @@ $(function() {
                 element = $('<div class="element-label">Label...</div>');
                 break;
             case 'image':
-                element = $('<img width="100" height="100">');
+                element = $('<img src="css/nothing.png" width="100" height="100">');
                 break;
             case 'text':
                 element = $('<input type="text">');

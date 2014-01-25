@@ -45,6 +45,10 @@ button, input, select, textarea {
     background: #fff;
 }
 
+img.element {
+    background: url('placeholder.png') no-repeat center #eee;
+}
+
 #section-canvas .element {
     position: absolute;
 }
