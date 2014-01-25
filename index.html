@@ -5,32 +5,28 @@
     <title>App Maker</title>
 
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <script type="text/javascript" src="lib/lodash.min.js"></script>
     <script type="text/javascript" src="lib/zepto.min.js"></script>
 </head>
 <body>
-    <div id="section-toolbar">
-        <button id="button-run-app">Run</button>
+    <div id="section-toolbar" style="padding:30px;">
+        <button id="button-run-app" style="margin-bottom: 50px;">Run</button>
     </div>
     <div id="section-sidebar">
 
         <div id="create-elements">
-            <h3>Elements</h3>
+            <h3 style="margin-top:25px;">Elements</h3>
 
-            <div class="draggable" data-element-type="button">
-                Button
-            </div>
-            <div class="draggable" data-element-type="label">
-                Label
-            </div>
-            <div class="draggable" data-element-type="image">
-                Image
-            </div>
-            <div class="draggable" data-element-type="textInput">
-                Text Input
-            </div>
+            <a href="#button" class="draggable btn btn-danger btn-lg" style="max-height:40px;width:130px;padding-bottom:5px;padding-top:5px;">Button</a> 
+            <a href="#label" class="draggable btn btn-danger btn-lg" style="margin-top:5px;max-height:40px;width:130px;padding-bottom:5px;padding-top:5px;";>Label</a>
+            <a href="#image" class="draggable btn btn-danger btn-lg" style="margin-top:5px;max-height:40px;width:130px;padding-bottom:5px;padding-top:5px;">Image <i class = "fa fa-camera"></i></a>
+            <a href="#textinput" class="draggable btn btn-default btn-lg" style="margin-top:5px;max-height:40px;width:130px;padding-bottom:5px;padding-top:5px;">Text Input <i class = "fa fa-circle"></i></a>
 
         </div>
+
 
         <div id="view-properties">
             <h3>Properties</h3>

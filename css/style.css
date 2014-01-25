@@ -54,3 +54,8 @@ button, input, select, textarea {
     width: 50%;
     background: #ddd;
 }
+
+.stoof {
+    color:red;
+    background-color:yellow;
+}
