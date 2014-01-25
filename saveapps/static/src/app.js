@@ -13,36 +13,34 @@ $(function() {
 
     var widgets = [];
     function updateHints() {
-	codeEditor.operation(function(){
-		for (var i = 0; i < widgets.length; ++i)
-			codeEditor.removeLineWidget(widgets[i]);
-    		widgets.length = 0;
+        codeEditor.operation(function(){
+            for (var i = 0; i < widgets.length; ++i)
+            codeEditor.removeLineWidget(widgets[i]);
+            widgets.length = 0;
 
-    		JSHINT(codeEditor.getValue());
-    		for (var i = 0; i < JSHINT.errors.length; ++i) {
-      			var err = JSHINT.errors[i];
-      			if (!err) continue;
-      			var msg = document.createElement("div"); 
-      			msg.appendChild(document.createTextNode(err.reason));
-     			msg.className = "lint-error";
-      			widgets.push(codeEditor.addLineWidget(err.line - 1, msg, {coverGutter: false, noHScroll: true}));
-		}
-	});
-	var info = codeEditor.getScrollInfo();
-	var after = codeEditor.charCoords({line: codeEditor.getCursor().line + 1, ch: 0}, "local").top;
-	if (info.top + info.clientHeight < after)
-		codeEditor.scrollTo(null, after - info.clientHeight + 3);
+            JSHINT(codeEditor.getValue());
+            for (var i = 0; i < JSHINT.errors.length; ++i) {
+                var err = JSHINT.errors[i];
+                if (!err) continue;
+                var msg = document.createElement("div");
+                msg.appendChild(document.createTextNode(err.reason));
+                msg.className = "lint-error";
+                widgets.push(codeEditor.addLineWidget(err.line - 1, msg, {coverGutter: false, noHScroll: true}));
+            }
+        });
+        var info = codeEditor.getScrollInfo();
+        var after = codeEditor.charCoords({line: codeEditor.getCursor().line + 1, ch: 0}, "local").top;
+        if (info.top + info.clientHeight < after)
+            codeEditor.scrollTo(null, after - info.clientHeight + 3);
     }
-
 
     var waiting;
     codeEditor.on("change", function() {
-    	clearTimeout(waiting);
-    	waiting = setTimeout(updateHints, 500);
+        clearTimeout(waiting);
+        waiting = setTimeout(updateHints, 500);
     });
 
     setTimeout(updateHints, 100);
-
 
     $(document).bind('keydown', function(e) {
         if (e.keyCode == 8) { // Backspace
