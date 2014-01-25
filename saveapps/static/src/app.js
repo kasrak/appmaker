@@ -328,9 +328,14 @@ var elementProperties = {
         'height': heightProperty,
         'source':{
             'type': 'text',
-            'getter': function($el) {return $el.attr('src');},
+            'getter': function($el) {var src = $el.attr('src'); return (src == "static/css/nothing.png") ? "" : src},
             'setter': function($el, val) {$el.attr('src', val)}
-        }
+        },
+	'file':{
+	    'type': 'file',
+	    'getter': function($el) {},
+	    'setter': function($el, val) {}
+	}
     },
     'text': {
         'width': widthProperty,
@@ -366,13 +371,23 @@ function showProperties($el) {
     var properties = elementProperties[elementType];
     var table = $("<div>");
     _.each(properties, function (value, key) {
-        var inputEl = $('<input type="text">')
-        .addClass('form-control')
-        .val(value.getter($el))
-        .on('input', function() {
-            value.setter($el, $(this).val());
-            updateSelectionBorder();
-        });
+	var inputEl;
+	if (value.type == 'file') {
+		inputEl = $('<input type="file">')
+			  .addClass('form-control')
+			  .on('change', function() {
+				console.log("CHANGED");
+				
+			  });
+	} else {
+		inputEl = $('<input type="text">')
+		.addClass('form-control')
+		.val(value.getter($el))
+		.on('input', function() {
+		    value.setter($el, $(this).val());
+		    updateSelectionBorder();
+		});
+	}
         var tr = $("<div>" + capitalize(key) + "<br><div class='input-container'></div></div>");
         $('.input-container', tr).append(inputEl);
         table.append(tr);
@@ -387,8 +402,8 @@ function showProperties($el) {
         .addClass('form-control')
         .val($el.data('action-' + key) || '')
         .on('input', function() {
-            $el.data('action-' + key, $(this).val());
-        });
+		$el.data('action-' + key, $(this).val());
+	});
         var el = $('<div>' + capitalize(key) + '<br><div class="input-container"></div></div>');
         $('.input-container', el).append(inputEl);
         actionsEl.append(el);
