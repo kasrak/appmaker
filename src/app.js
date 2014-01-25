@@ -189,8 +189,13 @@ var elementProperties = {
 	'image': {
 		'width':widthProperty,
 		'height':heightProperty
+	},
+	'text': {
+		'width': widthProperty,
+		'height': heightProperty
 	}
 };
+
 
 
 function showProperties(elementType, $el) {
