@@ -38,7 +38,7 @@ $(function() {
     var waiting;
     codeEditor.on("change", function() {
     	clearTimeout(waiting);
-    	waiting = setTimeout(updateHints, 500);
+    	waiting = setTimeout(updateHints, 1000);
     });
 
     setTimeout(updateHints, 100);
