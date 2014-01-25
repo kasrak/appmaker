@@ -24,6 +24,8 @@ $(function() {
     var $draggables = $('#create-elements .draggable');
     var $canvas = $('#section-canvas');
 
+    $currentSelectionBorder = $('#current-selection');
+
     var myCodeMirror = CodeMirror($('#section-code')[0], {
         value: "function() {\n  var x = true;\n  var y = 0;\n}",
         mode: "javascript",
@@ -122,8 +124,7 @@ $(function() {
         selectElement($(e.target));
     });
 
-    var $currentSelectionBorder = $('#current-selection');
-    var $selectedElement;
+
     function selectElement($el) {
         if ($selectedElement) {
             $selectedElement.removeClass('selected');
@@ -141,20 +142,23 @@ $(function() {
         updateSelectionBorder();
     }
 
-    function updateSelectionBorder() {
-        if (!$selectedElement) {
-            $currentSelectionBorder.hide();
-            return false;
-        }
-
-        $currentSelectionBorder.show().css({
-            top: $selectedElement.position().top - 2,
-            left: $selectedElement.position().left - 2,
-            width: $selectedElement.width() + 4,
-            height: $selectedElement.height() + 4
-        });
-    }
 });
+
+var $currentSelectionBorder;
+var $selectedElement;
+function updateSelectionBorder() {
+    if (!$selectedElement) {
+        $currentSelectionBorder.hide();
+        return false;
+    }
+
+    $currentSelectionBorder.show().css({
+        top: $selectedElement.position().top - 2,
+        left: $selectedElement.position().left - 2,
+        width: $selectedElement.width() + 4,
+        height: $selectedElement.height() + 4
+    });
+}
 
 var backgroundProperty = {
     'type': 'color',
@@ -235,6 +239,7 @@ function showProperties(elementType, $el) {
         .val(value.getter($el))
         .on('input', function() {
 			value.setter($el, $(this).val());
+            updateSelectionBorder();
 		});
 		var key = key.charAt(0).toUpperCase() + key.substring(1);
 		var tr = $("<div>" + key + "<br/><div class='input-container'></div></div>");
