@@ -3,6 +3,11 @@ body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font: 14pt/1.6 Helvetica, Arial, sans-serif;
+}
+
+button, input, select, textarea {
+    font: inherit;
 }
 
 #section-toolbar {
@@ -23,7 +28,7 @@ body {
     width: 200px;
 }
 
-#section-main {
+#section-editor {
     position: absolute;
     top: 60px;
     bottom: 0;
