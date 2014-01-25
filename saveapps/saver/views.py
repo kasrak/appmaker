@@ -35,7 +35,7 @@ def get_next_file_number():
 
 def make_html(html, js_url, file_num):
     # Raw
-    with open(new_file_name(file_num, 'raw'), 'w') as f:
+    with open(new_file_name(file_num, 'txt'), 'w') as f:
         f.write(html)
 
     # HTML
