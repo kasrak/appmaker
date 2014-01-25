@@ -27,13 +27,14 @@ body.app-container #current-selection {
     position: absolute;
 }
 .app button {
+    transition: background-color 0.3s ease;
     -webkit-border-radius: 8px; 
     -moz-border-radius: 8px; 
     border-radius: 8px; 
-    background-color:#165A63;
+    background-color:#41609A;
     color: #FAFAFA;
 }
 
 .app button:hover {
-    background-color:#4A9CEE;
+    background-color:#5076BD;
 }
