@@ -185,8 +185,13 @@ var elementProperties = {
 	},
 	'label': {
 		'color': colorProperty
+	},
+	'text': {
+		'width': widthProperty,
+		'height': heightProperty
 	}
 };
+
 
 
 function showProperties(elementType, $el) {
