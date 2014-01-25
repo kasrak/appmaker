@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
     <script type="text/javascript" src="lib/lodash.min.js"></script>
     <script type="text/javascript" src="lib/zepto.min.js"></script>
+    <script src="lib/codemirror/codemirror.js"></script>
+    <link rel="stylesheet" href="lib/codemirror/codemirror.css">
+    <script src="lib/codemirror/javascript.js"></script>
+
+
 </head>
 <body>
     <div id="section-toolbar" style="padding:30px;">
@@ -34,8 +39,13 @@
     <div id="section-editor">
         <div id="section-canvas">
         </div>
-        <div id="section-code">
-            Code
+        <div style = "padding:10px" id="section-code">
+		<script type="text/javascript">
+		var myCodeMirror = CodeMirror($('#section-code')[0], {
+				value: "function() {\n  var x = true;\n  var y = 0;\n}",
+				mode: "javascript",
+				lineNumbers: true});
+		</script>
         </div>
     </div>
 </body>
