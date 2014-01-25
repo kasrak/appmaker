@@ -1,6 +1,9 @@
 $(function() {
     var $draggables = $('#create-elements .draggable');
     var $canvas = $('#section-canvas');
+    var $toolbarRunButton = $('#section-toolbar button.run');
+    var $toolbarStopButton = $('#section-toolbar button.stop');
+
     $currentSelectionBorder = $('#current-selection');
 
     var codeEditor = CodeMirror($('#section-code')[0], {
@@ -31,16 +34,34 @@ $(function() {
         }
     });
 
-    $('#section-toolbar .run').on('click', function () {
+    var savedHTMLCode;
+    function saveApp(callback) {
         var jsCode = codeEditor.getValue();
-        var htmlCode = $canvas.html();
+        var htmlCode = savedHTMLCode = $canvas.html();
 
         $.post('http://127.0.0.1:8000/save', {
             'html': htmlCode,
             'js': jsCode
-        }, function(response){
-            console.log(response);
+        }, callback);
+    }
+
+    var appIsRunning = false;
+    function setRunningUI(isRunning) {
+        appIsRunning = isRunning;
+        $toolbarRunButton.prop('disabled', isRunning);
+        $toolbarStopButton.prop('disabled', !isRunning);
+    }
+
+    $toolbarRunButton.on('click', function () {
+        saveApp(function(response) {
+            setRunningUI(true);
         });
+    });
+
+    $toolbarStopButton.on('click', function() {
+        setRunningUI(false);
+
+        $canvas.html(savedHTMLCode);
     });
 
     $draggables.forEach(function(draggable) {
