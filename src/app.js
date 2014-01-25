@@ -178,13 +178,17 @@ var colorProperty = {
 
 var elementProperties = {
 	'button': {
-		'background': backgroundProperty,
-		'width': widthProperty,
-		'height': heightProperty,
-		'color': colorProperty
+		'background':backgroundProperty,
+		'width':widthProperty,
+		'height':heightProperty,
+		'color':colorProperty
 	},
 	'label': {
 		'color': colorProperty
+	},
+	'image': {
+		'width':widthProperty,
+		'height':heightProperty
 	}
 };
 
