@@ -1,4 +1,14 @@
 $(function() {
+    var $draggables = $('#create-elements .draggable');
+    var $canvas = $('#section-canvas');
+    $currentSelectionBorder = $('#current-selection');
+
+    var codeEditor = CodeMirror($('#section-code')[0], {
+        value: "",
+        mode: "javascript",
+        lineNumbers: true
+    });
+
     $(document).bind('keydown', function(e) {
         if (e.keyCode == 8) { // Backspace
             var el = e.target;
@@ -21,23 +31,14 @@ $(function() {
         }
     });
 
-
     $('#section-toolbar .run').on("click", function () {
+        var jsCode = codeEditor.getValue();
+        var htmlCode = $canvas.html();
+
         $.post('http://127.0.0.1:8000/save/html', { 'html': '<p>Test</p>' }, function(response){
-  // process response
-        console.log(response);
-        })
-    });
-
-    var $draggables = $('#create-elements .draggable');
-    var $canvas = $('#section-canvas');
-
-    $currentSelectionBorder = $('#current-selection');
-
-    var myCodeMirror = CodeMirror($('#section-code')[0], {
-        value: "function() {\n  var x = true;\n  var y = 0;\n}",
-        mode: "javascript",
-        lineNumbers: true
+            // process response
+            console.log(response);
+        });
     });
 
     $draggables.forEach(function(draggable) {
@@ -103,16 +104,16 @@ $(function() {
         switch(elementType) {
             case 'button':
                 element = $('<button>Button</button>');
-                break;
+            break;
             case 'label':
                 element = $('<div class="element-label">Label...</div>');
-                break;
+            break;
             case 'image':
                 element = $('<img src="static/css/nothing.png" width="100" height="100">');
-                break;
+            break;
             case 'text':
                 element = $('<input type="text">');
-                break;
+            break;
         }
 
         element.data('element-type', elementType);
@@ -210,45 +211,48 @@ var colorProperty = {
 };
 
 var textProperty = {
-	'type': 'text',
-	'getter': function($el) { return $el.text();},
-	'setter': function($el, val) { $el.text(val);}
+    'type': 'text',
+    'getter': function($el) { return $el.text();},
+    'setter': function($el, val) { $el.text(val);}
 };
 
 var placeholderProperty = {
-	'type' : 'text',
-	'getter': function ($el) { return $el.attr('placeholder');},
-	'setter': function ($el, val) { $el.attr('placeholder', val);}
+    'type' : 'text',
+    'getter': function ($el) { return $el.attr('placeholder');},
+    'setter': function ($el, val) { $el.attr('placeholder', val);}
 };
 
 
 var elementProperties = {
-	'button': {
-		'text':textProperty,
-		'background':backgroundProperty,
-		'width':widthProperty,
-		'height':heightProperty,
-		'color':colorProperty
-	},
-	'label': {
-		'text':textProperty,
-		'background':backgroundProperty,
-		'color': colorProperty
-	},
-	'image': {
-		'width':widthProperty,
-		'height':heightProperty,
-		'source':{'type': 'text',
-			'getter': function($el) {return $el.attr('src');},
-			'setter': function($el, val) {$el.attr('src', val)}
-			}
-	},
-	'text': {
-		'width': widthProperty,
-		'height': heightProperty,
-		'placeholder': placeholderProperty,
-		'background': backgroundProperty
-	}
+    'button': {
+        'text': textProperty,
+        'background': backgroundProperty,
+        'width': widthProperty,
+        'height': heightProperty,
+        'color': colorProperty
+    },
+    'label': {
+        'text': textProperty,
+        'background': backgroundProperty,
+        'color': colorProperty,
+        'width': widthProperty,
+        'height': heightProperty,
+    },
+    'image': {
+        'width': widthProperty,
+        'height': heightProperty,
+        'source':{
+            'type': 'text',
+            'getter': function($el) {return $el.attr('src');},
+            'setter': function($el, val) {$el.attr('src', val)}
+        }
+    },
+    'text': {
+        'width': widthProperty,
+        'height': heightProperty,
+        'placeholder': placeholderProperty,
+        'background': backgroundProperty
+    }
 
 };
 
@@ -274,21 +278,21 @@ function showProperties($el) {
     });
 
     // Properties
-	var properties = elementProperties[elementType];
-	var table = $("<div>");
-	_.each(properties, function (value, key) {
+    var properties = elementProperties[elementType];
+    var table = $("<div>");
+    _.each(properties, function (value, key) {
         var inputEl = $('<input type="text">')
         .addClass('form-control')
         .val(value.getter($el))
         .on('input', function() {
-			value.setter($el, $(this).val());
+            value.setter($el, $(this).val());
             updateSelectionBorder();
-		});
-		var tr = $("<div>" + capitalize(key) + "<br><div class='input-container'></div></div>");
-		$('.input-container', tr).append(inputEl);
-		table.append(tr);
-	});
-	$("#properties-container").empty().append(table);
+        });
+        var tr = $("<div>" + capitalize(key) + "<br><div class='input-container'></div></div>");
+        $('.input-container', tr).append(inputEl);
+        table.append(tr);
+    });
+    $("#properties-container").empty().append(table);
 
     // Actions
     var actions = elementActions[elementType];
