@@ -21,6 +21,7 @@ button, input, select, textarea {
     bottom: 22px;
     right: 8px;
     width: 100px;
+    margin-top: 5px;
 }
 
 #section-sidebar {
@@ -103,10 +104,18 @@ img.element {
     background: #ddd;
 }
 
-.btn{
+#create-elements .btn {
     margin-top:5px;
-    max-height:40px;
-    width:130px;
+    width:200px;
+    padding: 5px;
+    text-align: left;
+}
+
+#create-elements .btn i {
+    float: left;
+    margin-top: 4px;
+    margin-left: 2px;
+    margin-right: 7px;
 }
 
 #sidebutton {

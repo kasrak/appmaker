@@ -107,11 +107,13 @@ $(function() {
                 break;
         }
 
-	element.data('element-type', elementType);
+        element.data('element-type', elementType);
         element.addClass('element');
         element.css({ top: e.offsetY, left: e.offsetX });
 
         $canvas.append(element);
+
+        selectElement(element);
 
         return false;
     });
