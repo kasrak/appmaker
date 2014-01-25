@@ -328,9 +328,14 @@ var elementProperties = {
         'height': heightProperty,
         'source':{
             'type': 'text',
-            'getter': function($el) {return $el.attr('src');},
+            'getter': function($el) {var src = $el.attr('src'); return (src == "static/css/nothing.png") ? "" : src},
             'setter': function($el, val) {$el.attr('src', val)}
-        }
+        },
+	'file':{
+	    'type': 'file',
+	    'getter': function($el) {},
+	    'setter': function($el, val) {}
+	}
     },
     'text': {
         'width': widthProperty,
@@ -366,13 +371,34 @@ function showProperties($el) {
     var properties = elementProperties[elementType];
     var table = $("<div>");
     _.each(properties, function (value, key) {
-        var inputEl = $('<input type="text">')
+	var inputEl;
+	if (value.type == 'file') {
+        inputEl = $('<input type="file">')
         .addClass('form-control')
-        .val(value.getter($el))
-        .on('input', function() {
-            value.setter($el, $(this).val());
-            updateSelectionBorder();
+        .on('change', function() {
+            var formData = new FormData();
+            var file = this.files[0];
+            formData.append(file.name, file);
+
+            $(this).prop('disabled', true);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload', true);
+            xhr.onload = function(e) {
+                $(this).prop('disabled', false);
+                console.log('upload done', e);
+            };
+            xhr.send(formData);
         });
+	} else {
+		inputEl = $('<input type="text">')
+		.addClass('form-control')
+		.val(value.getter($el))
+		.on('input', function() {
+		    value.setter($el, $(this).val());
+		    updateSelectionBorder();
+		});
+	}
         var tr = $("<div>" + capitalize(key) + "<br><div class='input-container'></div></div>");
         $('.input-container', tr).append(inputEl);
         table.append(tr);
@@ -387,8 +413,8 @@ function showProperties($el) {
         .addClass('form-control')
         .val($el.data('action-' + key) || '')
         .on('input', function() {
-            $el.data('action-' + key, $(this).val());
-        });
+		$el.data('action-' + key, $(this).val());
+	});
         var el = $('<div>' + capitalize(key) + '<br><div class="input-container"></div></div>');
         $('.input-container', el).append(inputEl);
         actionsEl.append(el);
