@@ -17,6 +17,12 @@ button, input, select, textarea {
     height: 20px;
 }
 
+#section-toolbar .btn.run {
+    bottom: 22px;
+    right: 8px;
+    width: 100px;
+}
+
 #section-sidebar {
     background: #ddd;
     padding: 20px;
@@ -25,7 +31,7 @@ button, input, select, textarea {
     bottom: 0;
     top: 60px;
     overflow: auto;
-    width: 200px;
+    width: 240px;
 }
 
 #section-editor {
@@ -43,6 +49,8 @@ button, input, select, textarea {
     bottom: 0;
     width: 50%;
     background: #fff;
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
 }
 
 img.element {
@@ -54,7 +62,7 @@ img.element {
 }
 
 #section-code {
-    padding: 20px;
+    padding: 0px;
     position: absolute;
     top: 0;
     bottom: 0;
