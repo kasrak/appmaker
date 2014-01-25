@@ -55,8 +55,16 @@ button, input, select, textarea {
     background: #ddd;
 }
 
-.btn-lg {
+.btn{
     margin-top:5px;
     max-height:40px;
-    width:150px;
+    width:130px;
+}
+
+#sidebutton {
+    padding-top:8px;
+}
+
+.fa {
+    font-size:0.8em;
 }
