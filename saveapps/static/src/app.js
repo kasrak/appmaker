@@ -23,9 +23,6 @@ $(function() {
       			var err = JSHINT.errors[i];
       			if (!err) continue;
       			var msg = document.createElement("div");
-     			var icon = msg.appendChild(document.createElement("span"));
-      			icon.innerHTML = "!!";
-      			icon.className = "lint-error-icon";
       			msg.appendChild(document.createTextNode(err.reason));
      			msg.className = "lint-error";
       			widgets.push(codeEditor.addLineWidget(err.line - 1, msg, {coverGutter: false, noHScroll: true}));
@@ -40,11 +37,11 @@ $(function() {
 
     var waiting;
     codeEditor.on("change", function() {
-    clearTimeout(waiting);
-    waiting = setTimeout(updateHints, 500);
-  });
+    	clearTimeout(waiting);
+    	waiting = setTimeout(updateHints, 500);
+    });
 
-  setTimeout(updateHints, 100);
+    setTimeout(updateHints, 100);
 
 
     $(document).bind('keydown', function(e) {
