@@ -21,6 +21,14 @@ $(function() {
         }
     });
 
+
+    $('#section-toolbar .run').on("click", function () {
+        $.post('http://127.0.0.1:8000/save/html', { 'html': '<p>Test</p>' }, function(response){
+  // process response
+        console.log(response);
+        })
+    });
+
     var $draggables = $('#create-elements .draggable');
     var $canvas = $('#section-canvas');
 
