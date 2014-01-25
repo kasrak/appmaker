@@ -328,8 +328,14 @@ var elementProperties = {
         'height': heightProperty,
         'source':{
             'type': 'text',
-            'getter': function($el) {var src = $el.attr('src'); return (src == "static/css/nothing.png") ? "" : src},
-            'setter': function($el, val) {$el.attr('src', val)}
+            'getter': function($el) {
+                var src = $el.attr('src');
+                return (src == "static/css/nothing.png") ? "" : src;
+            },
+            'setter': function($el, val) {
+                $el.attr('src', val);
+                $el.css('background', 'none');
+            }
         },
 	'file':{
 	    'type': 'file',
@@ -371,41 +377,42 @@ function showProperties($el) {
     var properties = elementProperties[elementType];
     var table = $("<div>");
     _.each(properties, function (value, key) {
-	var inputEl;
-	if (value.type == 'file') {
-        inputEl = $('<input type="file">')
-        .addClass('form-control')
-        .on('change', function() {
-            var formData = new FormData();
-            var $input = $(this);
-            var file = this.files[0];
-            formData.append('file', file);
+        var inputEl;
+        if (value.type == 'file') {
+            inputEl = $('<input type="file">')
+            .addClass('form-control')
+            .on('change', function() {
+                var formData = new FormData();
+                var $input = $(this);
+                var file = this.files[0];
+                formData.append('file', file);
 
-            $input.prop('disabled', true);
+                $input.prop('disabled', true);
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/upload', true);
-            xhr.onload = function(e) {
-                $input.prop('disabled', false);
-                var response = e.srcElement;
-                if (response.status == 200) {
-                    $el.attr('src', '/' + response.response);
-                } else {
-                    alert('Uploading failed! Please try again.');
-                    console.log(response);
-                }
-            };
-            xhr.send(formData);
-        });
-	} else {
-		inputEl = $('<input type="text">')
-		.addClass('form-control')
-		.val(value.getter($el))
-		.on('input', function() {
-		    value.setter($el, $(this).val());
-		    updateSelectionBorder();
-		});
-	}
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/upload', true);
+                xhr.onload = function(e) {
+                    $input.prop('disabled', false);
+                    var response = e.srcElement;
+                    if (response.status == 200) {
+                        $el.attr('src', '/' + response.response);
+                    } else {
+                        alert('Uploading failed! Please try again.');
+                        console.log(response);
+                    }
+                };
+                xhr.send(formData);
+            });
+        } else {
+            inputEl = $('<input type="text">')
+            .addClass('form-control')
+            .val(value.getter($el))
+            .on('input', function() {
+                value.setter($el, $(this).val());
+                updateSelectionBorder();
+            });
+        }
+
         var tr = $("<div>" + capitalize(key) + "<br><div class='input-container'></div></div>");
         $('.input-container', tr).append(inputEl);
         table.append(tr);
