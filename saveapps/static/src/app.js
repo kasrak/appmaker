@@ -334,14 +334,14 @@ var elementProperties = {
             },
             'setter': function($el, val) {
                 $el.attr('src', val);
-                $el.css('background', 'none');
+                $el.css('background', 'transparent');
             }
         },
-	'file':{
-	    'type': 'file',
-	    'getter': function($el) {},
-	    'setter': function($el, val) {}
-	}
+        'file':{
+            'type': 'file',
+            'getter': function($el) {},
+            'setter': function($el, val) {}
+        }
     },
     'text': {
         'width': widthProperty,
