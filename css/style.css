@@ -45,6 +45,10 @@ button, input, select, textarea {
     background: #fff;
 }
 
+#section-canvas .element {
+    position: absolute;
+}
+
 #section-code {
     padding: 20px;
     position: absolute;
