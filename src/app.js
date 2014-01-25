@@ -207,6 +207,13 @@ var textProperty = {
 	'setter': function($el, val) { $el.text(val);}
 };
 
+var placeholderProperty = {
+	'type' : 'text',
+	'getter': function ($el) { return $el.attr('placeholder');},
+	'setter': function ($el, val) { $el.attr('placeholder', val);}
+};
+
+
 var elementProperties = {
 	'button': {
 		'text':textProperty,
@@ -224,13 +231,15 @@ var elementProperties = {
 		'width':widthProperty,
 		'height':heightProperty,
 		'source':{'type': 'text',
-			'getter': function($el) {},
-			'setter': function($el, val) {}
+			'getter': function($el) {return $el.attr('src');},
+			'setter': function($el, val) {$el.attr('src', val)}
 			}
 	},
 	'text': {
 		'width': widthProperty,
-		'height': heightProperty
+		'height': heightProperty,
+		'placeholder': placeholderProperty,
+		'background': backgroundProperty
 	}
 
 };
