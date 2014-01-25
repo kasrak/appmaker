@@ -3,6 +3,7 @@ $(function() {
     var $canvas = $('#section-canvas');
     var $toolbarRunButton = $('#section-toolbar button.run');
     var $toolbarStopButton = $('#section-toolbar button.stop');
+    var $toolbarPublishButton = $('#section-toolbar button.publish');
 
     var codeEditor = CodeMirror($('#section-code')[0], {
         value: "",
@@ -37,10 +38,19 @@ $(function() {
         var jsCode = codeEditor.getValue();
         var htmlCode = savedHTMLCode = $canvas.html();
 
-        $.post('http://127.0.0.1:8000/save', {
-            'html': htmlCode,
-            'js': jsCode
-        }, callback);
+        $.ajax({
+            'type': 'POST',
+            'url': 'http://127.0.0.1:8000/save',
+            'data': {
+                'html': htmlCode,
+                'js': jsCode
+            },
+            'dataType': 'json',
+            'success': callback,
+            'error': function() {
+                alert('Saving failed! Please try again.');
+            }
+        });
     }
 
     var appIsRunning = false;
@@ -61,8 +71,14 @@ $(function() {
 
     $toolbarStopButton.on('click', function() {
         setRunningUI(false);
-
         $canvas.html(savedHTMLCode);
+    });
+
+    $toolbarPublishButton.on('click', function() {
+        saveApp(function(response) {
+            debugger;
+            window.location = window.location.origin + '/' + response['html'];
+        });
     });
 
     $draggables.forEach(function(draggable) {
@@ -164,7 +180,6 @@ $(function() {
 
         selectElement($(e.target));
     });
-
 
     function selectElement($el) {
         if ($selectedElement) {
