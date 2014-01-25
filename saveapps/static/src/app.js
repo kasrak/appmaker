@@ -108,7 +108,7 @@ $(function() {
                 element = $('<div class="element-label">Label...</div>');
                 break;
             case 'image':
-                element = $('<img src="css/nothing.png" width="100" height="100">');
+                element = $('<img src="static/css/nothing.png" width="100" height="100">');
                 break;
             case 'text':
                 element = $('<input type="text">');

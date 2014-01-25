@@ -42,10 +42,8 @@ INSTALLED_APPS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'saveapps.urls'
@@ -77,6 +75,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATICFILES_DIRS= (os.path.join(BASE_DIR, "static"),)
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, "templates"),)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/

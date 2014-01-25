@@ -2,8 +2,7 @@ from django.shortcuts import render, render_to_response
 
 # Create your views here.
 def Display(request):
-	context = {'name': 'my name'}
-	return render_to_response('stuf.html', context)
+	return render_to_response('index.html', {})
 
 def SaveJS(request, filetype):
 	if request.method == 'POST':
