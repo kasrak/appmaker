@@ -73,7 +73,7 @@ $(function() {
                 top: e.pageY - pos.top - movingOffset.y
             });
 
-            if ($movingElement[0] == $selectedElement[0]) {
+            if ($selectedElement && $movingElement[0] == $selectedElement[0]) {
                 updateSelectionBorder();
             }
         }
@@ -162,7 +162,11 @@ function updateSelectionBorder() {
 }
 
 function rgbToHex(rgb) {
-    var parts = rgb.substring(rgb.indexOf('(') + 1, rgb.length - 1).split(', ').slice(0, 3);
+    var parts = rgb.substring(rgb.indexOf('(') + 1, rgb.length - 1).split(', ');
+
+    if (parts.length != 3) {
+        return rgb;
+    }
 
     return '#' + _.map(parts, function(part) {
         var hex = parseInt(part).toString(16);
