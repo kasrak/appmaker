@@ -35,11 +35,12 @@ body.app-container #current-selection {
     width:90px;
     background-color:#41609A;
     color: #FAFAFA;
+    cursor:pointer;
 }
 
-.app button:hover {
+body.app-container button:hover {
     background-color:#5076BD;
 }
-.app button:active {
+body.app-container button:active {
     background-color:#58D3F7;
 }

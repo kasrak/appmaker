@@ -47,6 +47,9 @@ def ViewApp(request, app_id):
     app_to_view = str(app_id) + ".html"
     return render_to_response(app_to_view, {}) 
 
+
+def ImageUpload(request):
+    pass
 def get_next_file_number():
     name = os.path.join(settings.BASE_DIR, 'writable/indices.txt')
     if not os.path.exists(name):
