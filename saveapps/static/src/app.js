@@ -22,7 +22,7 @@ $(function() {
     		for (var i = 0; i < JSHINT.errors.length; ++i) {
       			var err = JSHINT.errors[i];
       			if (!err) continue;
-      			var msg = document.createElement("div");
+      			var msg = document.createElement("div"); 
       			msg.appendChild(document.createTextNode(err.reason));
      			msg.className = "lint-error";
       			widgets.push(codeEditor.addLineWidget(err.line - 1, msg, {coverGutter: false, noHScroll: true}));
@@ -79,10 +79,7 @@ $(function() {
                 'js': jsCode
             },
             'dataType': 'json',
-            'success': function(response) {
-                history.pushState({file_num: response.file_num},"",'edit/' + response.file_num);
-                callback(response);
-            },
+            'success': callback,
             'error': function() {
                 alert('Saving failed! Please try again.');
             }
