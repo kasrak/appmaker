@@ -6,7 +6,7 @@ $(function() {
     var $toolbarPublishButton = $('#section-toolbar button.publish');
 
     var codeEditor = CodeMirror($('#section-code')[0], {
-        value: "",
+        value: $('#app-js-code').val(),
         mode: "javascript",
         lineNumbers: true
     });
@@ -77,7 +77,10 @@ $(function() {
                 'js': jsCode
             },
             'dataType': 'json',
-            'success': callback,
+            'success': function(response) {
+                history.pushState({file_num: response.file_num},"",'edit/' + response.file_num);
+                callback(response);
+            },
             'error': function() {
                 alert('Saving failed! Please try again.');
             }
@@ -116,7 +119,7 @@ $(function() {
 
     $toolbarPublishButton.on('click', function() {
         saveApp(function(response) {
-            window.location = window.location.origin + '/' + response['html'];
+            window.location = window.location.origin + '/' + response['file_num'];
         });
     });
 

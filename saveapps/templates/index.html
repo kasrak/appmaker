@@ -66,6 +66,7 @@
             </div>
         </div>
 
+        <textarea id ="app-js-code">{{app_js}}</textarea>
 
         <div id="view-properties">
             <h3>IDENTIFIER</h3>
@@ -83,7 +84,7 @@
     </div>
     <div id="section-editor">
         <div id="section-canvas" class="app">
-            <div id="current-selection"></div>
+            {{app_html|safe}}
         </div>
         <div id="section-code">
         </div>

@@ -27,17 +27,20 @@ def SaveContent(request):
         return HttpResponse(data, mimetype='application/json')
 
 def EditApp(request, app_id):
-    #add js as hidden textarea; make apps accessible via simple urls
+    #add js as hidden textarea
     num = get_next_file_number()
-    # load file.txt corresponding to app_id, and add it to 'app_html' key in the dict, if it exists. if not:
-    # <div id="current-selection"></div>
 
-    try:
+    try: # if exists
         html_to_add = open("static/saved/" + str(app_id) + ".txt").read()
     except:
         html_to_add = "<div id=\"current-selection\"></div>"
 
-    return render_to_response('index.html', {'file_num': num, 'app_html': html_to_add}) 
+    try:
+        js_to_add = open("static/saved/" + str(app_id) + ".js").read()
+    except:
+        js_to_add = ""
+
+    return render_to_response('index.html', {'file_num': num, 'app_html': html_to_add, 'app_js': js_to_add}) 
 
 def ViewApp(request, app_id):
     app_to_view = str(app_id) + ".html"
