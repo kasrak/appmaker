@@ -1,6 +1,30 @@
 $(function() {
+    $(document).bind('keydown', function(e) {
+        if (e.keyCode == 8) { // Backspace
+            var el = e.target;
+            var tagName = el.tagName.toUpperCase();
+            var elType = tagName == 'INPUT' && el.type.toUpperCase();
+            var doPrevent = false;
+            if (elType == 'TEXT' || elType === 'PASSWORD' || elType == 'FILE' || tagName === 'TEXTAREA') {
+                doPrevent = el.readOnly || el.disabled;
+            } else {
+                doPrevent = true;
+            }
+
+            if (doPrevent) {
+                if ($selectedElement) {
+                    $selectedElement.remove();
+                    selectElement(null);
+                }
+                e.preventDefault();
+            }
+        }
+    });
+
     var $draggables = $('#create-elements .draggable');
     var $canvas = $('#section-canvas');
+
+    $currentSelectionBorder = $('#current-selection');
 
     var myCodeMirror = CodeMirror($('#section-code')[0], {
         value: "function() {\n  var x = true;\n  var y = 0;\n}",
@@ -94,86 +118,84 @@ $(function() {
 
     $canvas.on('click', function(e){
         if (!$(e.target).hasClass('element')) {
+            selectElement(null);
             return true;
         }
 
         selectElement($(e.target));
     });
 
-    var $currentSelectionBorder = $('#current-selection');
-    var $selectedElement;
+
     function selectElement($el) {
         if ($selectedElement) {
             $selectedElement.removeClass('selected');
         }
 
         $selectedElement = $el;
-        $selectedElement.addClass('selected');
-        showProperties($el.data('element-type'), $el);
+
+        if ($selectedElement) {
+            $selectedElement.addClass('selected');
+            showProperties($el.data('element-type'), $el);
+        } else {
+            hideProperties();
+        }
+
         updateSelectionBorder();
     }
 
-    function updateSelectionBorder() {
-        if (!$selectedElement) {
-            $currentSelectionBorder.hide();
-            return false;
-        }
-
-        $currentSelectionBorder.show().css({
-            top: $selectedElement.position().top - 2,
-            left: $selectedElement.position().left - 2,
-            width: $selectedElement.width() + 4,
-            height: $selectedElement.height() + 4
-        });
-    }
 });
+
+var $currentSelectionBorder;
+var $selectedElement;
+function updateSelectionBorder() {
+    if (!$selectedElement) {
+        $currentSelectionBorder.hide();
+        return false;
+    }
+
+    $currentSelectionBorder.show().css({
+        top: $selectedElement.position().top - 2,
+        left: $selectedElement.position().left - 2,
+        width: $selectedElement.width() + 4,
+        height: $selectedElement.height() + 4
+    });
+}
+
+function rgbToHex(rgb) {
+    var parts = rgb.substring(rgb.indexOf('(') + 1, rgb.length - 1).split(', ');
+
+    if (parts.length != 3) {
+        return rgb;
+    }
+
+    return '#' + _.map(parts, function(part) {
+        var hex = parseInt(part).toString(16);
+        return (hex.length == 1 ? '0' : '') + hex;
+    }).join('');
+}
 
 var backgroundProperty = {
     'type': 'color',
-    'getter': function($el) {
-        var rgbcolor = $el.css("background-color");
-        var length = rgbcolor.length;
-        var rgb = rgbcolor.substring(4, length-1).split(", ");
-        var red = parseInt(rgb[0]);
-        var green = parseInt(rgb[1]);
-        var blue = parseInt(rgb[2]);
-        return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
-    },
-    'setter': function($el, val) {$el.css("background-color", val);}
+    'getter': function($el) { return rgbToHex($el.css('background-color')); },
+    'setter': function($el, val) { $el.css("background-color", val); }
 };
 
 var widthProperty = {
     'type': 'int',
-    'getter': function($el) {
-        return $el.css("width");
-    },
-    'setter': function($el, val) {
-        $el.css("width", val);
-    }
+    'getter': function($el) { return $el.css("width"); },
+    'setter': function($el, val) { $el.css("width", val); }
 };
 
 var heightProperty =  {
     'type': 'int',
-    'getter': function($el) {
-        return $el.css("height");
-    },
-    'setter': function($el, val) {
-        $el.css("height", val);
-    }
+    'getter': function($el) { return $el.css("height"); },
+    'setter': function($el, val) { $el.css("height", val); }
 };
 
 var colorProperty = {
     'type': 'color',
-    'getter': function($el) {
-        var rgbcolor = $el.css("color");
-        var length = rgbcolor.length;
-        var rgb = rgbcolor.substring(4, length-1).split(", ");
-        var red = parseInt(rgb[0], 10);
-        var green = parseInt(rgb[1], 10);
-        var blue = parseInt(rgb[2], 10);
-        return "#"+red.toString(16) + green.toString(16) + blue.toString(16);
-    },
-    'setter': function($el, val) {$el.css("color", val);}
+    'getter': function($el) { return rgbToHex($el.css('color')); },
+    'setter': function($el, val) { $el.css("color", val); }
 };
 
 var elementProperties = {
@@ -184,6 +206,7 @@ var elementProperties = {
 		'color':colorProperty
 	},
 	'label': {
+		'background':backgroundProperty,
 		'color': colorProperty
 	},
 	'image': {
@@ -207,6 +230,7 @@ function showProperties(elementType, $el) {
         .val(value.getter($el))
         .on('input', function() {
 			value.setter($el, $(this).val());
+            updateSelectionBorder();
 		});
 		var key = key.charAt(0).toUpperCase() + key.substring(1);
 		var tr = $("<div>" + key + "<br/><div class='input-container'></div></div>");
@@ -216,3 +240,6 @@ function showProperties(elementType, $el) {
 	$("#properties-container").empty().append(table);
 }
 
+function hideProperties() {
+    $('#properties-container').empty();
+}

@@ -70,6 +70,7 @@ button, input, select, textarea {
     border-left: 1px solid #aaa;
     border-right: 1px solid #aaa;
     overflow: hidden;
+    font-size: 16pt;
 }
 
 img.element {
