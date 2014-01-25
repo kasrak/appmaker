@@ -6,7 +6,8 @@ import os
 
 # Create your views here.
 def Display(request):
-	return render_to_response('index.html', {})
+    num = get_next_file_number()
+    return render_to_response('index.html', {'file_num': num})
 
 def SaveContent(request):
     if request.method == 'POST':
@@ -23,6 +24,9 @@ def SaveContent(request):
         data = json.dumps(d)
 
         return HttpResponse(data, mimetype='application/json')
+
+def EditContent(request):
+    pass
 
 def get_next_file_number():
     with open('indices.txt', 'r+') as f:
@@ -41,7 +45,8 @@ def make_html(html, js_url, file_num):
     # HTML
     rendered = render_to_string('app.html', {
         'app_html': html,
-        'js_url': js_url
+        'js_url': js_url,
+        'file_num': file_num,
     })
 
     name = new_file_name(file_num, 'html')
