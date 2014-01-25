@@ -154,8 +154,9 @@ var elementProperties = {
 		'height': heightProperty,
 		'color': colorProperty
 	},
-	//'label': {
-	//	'background'
+	'label': {
+		'color': colorProperty
+	}
 		
 };
 
