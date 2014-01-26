@@ -7,4 +7,4 @@ Made at the Waterloo Facebook hackathon by Alex, Kasra, and Rohan.
 
 Only works in Chrome for now.
 
-Live demo: http://temets.com/edit/121
+Live demo: http://appmaker.kasrak.com/edit/121
