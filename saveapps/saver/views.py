@@ -10,6 +10,7 @@ DEFAULT_HTML = '<div id="current-selection"></div>'
 # Create your views here.
 def Intro(request):
     return render_to_response('intro.html', {})
+
 def Display(request):
     return render_to_response('index.html', { 'app_html': DEFAULT_HTML, 'app_js': '' })
 
@@ -45,8 +46,7 @@ def EditApp(request, app_id):
 
 def ViewApp(request, app_id):
     app_to_view = str(app_id) + ".html"
-    return render_to_response(app_to_view, {}) 
-
+    return render_to_response(app_to_view, {})
 
 def ImageUpload(request):
     if request.method == "POST":

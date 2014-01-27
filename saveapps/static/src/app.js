@@ -125,7 +125,7 @@ $(function() {
     });
 
     $toolbarNewButton.on('click', function() {
-        window.location = window.location.origin;
+        window.location = window.location.origin + '/app';
     });
 
     $draggables.forEach(function(draggable) {

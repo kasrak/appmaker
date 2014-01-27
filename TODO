@@ -1,0 +1,36 @@
+- code cleanup
+    - switch to flask?
+    - use a UI framework (react?)
+    - cross browser support (touch?)
+
+- drag element corners to resize
+
+- on image upload, set appropriate dimensions
+
+- store app metadata in database
+    - allows exploring history/revisions and forks
+
+- autogenerate boilerplace for action callbacks
+- action callbacks dropdown (parse/run code without side-effects?)
+
+- prevent assignment to actions, el?
+
+- less obnoxious error messages
+
+- run time error messages
+
+- interactive console
+
+- break points
+
+- autocomplete
+
+- more element types:
+    - links
+    - sliders
+    - shapes?
+
+- documentation / tutorials
+    - especially for getting started
+
+- drag-drop image uploads

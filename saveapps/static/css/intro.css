@@ -1,6 +1,6 @@
 @import url('http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300|Source+Sans+Pro:400|Imprima:800');
 
-body { 
+body {
 	background-color: #121222;
 }
 #try {
@@ -13,8 +13,7 @@ body {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	background: none;
-	border: 2px solid #084B8A;
+	background: #47a447;
 	border-radius:2px;
 	font-size: 18px;
 	font-weight: normal;
@@ -25,12 +24,11 @@ body {
 	-webkit-transition: background-color ease-in-out 0.3s;
 	transition: background-color ease-in-out 0.3s;
 	text-decoration:none;
-
 	display:inline-block;
-
 }
+
 .try-button:hover {
-	background-color: #084B8A;
+	background-color: #278427;
 }
 
 .main-title {
@@ -55,45 +53,36 @@ body {
 	font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 	font-weight: 300;
 }
+
 .content-box {
 	font-size: 24px;
 	background: #EFEEDF;
 	color: #34495e;
     padding-top: 35px;
 	padding-bottom: 35px;
-	border:2px solid #D7D7D1;
 }
 
-#content .bullet {
-	margin-top:30px;
-	padding: 7px 30px 8px;
-	border-radius:3px;
-}
 #content .bullet:hover {
-	background-color:#47a447;
+	background-color:;
 	border-color:#398439;
 	color:#FCFCFC;
 }
-.bullet-fa{
-	margin-top:25px;
-}
-
 
 .info-box {
 	font-size: 20px;
 	color: #E6E6E6;
 	padding-bottom: 35px;
-
 }
+
 #info {
 	width:50%;
 	margin-left:auto;
 	margin-right:auto;
 }
 
-.git {
+#info a {
 	color:#4495E0;
 }
-.git:hover {
+#info a:hover {
 	color:#6AAEED;
 }
