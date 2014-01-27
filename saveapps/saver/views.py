@@ -8,6 +8,8 @@ import os, random
 DEFAULT_HTML = '<div id="current-selection"></div>'
 
 # Create your views here.
+def Intro(request):
+    return render_to_response('intro.html', {})
 def Display(request):
     return render_to_response('index.html', { 'app_html': DEFAULT_HTML, 'app_js': '' })
 
@@ -47,7 +49,6 @@ def ViewApp(request, app_id):
 
 
 def ImageUpload(request):
-    image = "Asdf"
     if request.method == "POST":
         print (request.FILES)
         image = request.FILES['file']
