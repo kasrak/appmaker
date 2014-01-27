@@ -1,0 +1,99 @@
+@import url('http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300|Source+Sans+Pro:400|Imprima:800');
+
+body { 
+	background-color: #121222;
+}
+#try {
+	margin-top:50px;
+	text-align:center;
+	margin-bottom:50px;
+}
+.try-button {
+	position:relative;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background: none;
+	border: 2px solid #084B8A;
+	border-radius:2px;
+	font-size: 18px;
+	font-weight: normal;
+	color: #FCFCFC;
+	font-weight: 500;
+	font-family: "Imprima", Helvetica, Arial, sans-serif;
+	padding: 18px 40px 18px;
+	-webkit-transition: background-color ease-in-out 0.3s;
+	transition: background-color ease-in-out 0.3s;
+	text-decoration:none;
+
+	display:inline-block;
+
+}
+.try-button:hover {
+	background-color: #084B8A;
+}
+
+.main-title {
+	position:relative;
+	text-align:center;
+	font-family:'Alegreya Sans SC';
+	font-weight:300;
+	color:#4495E0;
+	font-size:60px;
+}
+
+#main{
+	position:static;
+	padding-bottom:1px;
+	padding-top:1px;
+	margin-bottom:4px;
+}
+.content-box, .info-box{
+	position: relative;
+	text-align: center;
+	font-weight: normal;
+	font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+	font-weight: 300;
+}
+.content-box {
+	font-size: 24px;
+	background: #EFEEDF;
+	color: #34495e;
+    padding-top: 35px;
+	padding-bottom: 35px;
+	border:2px solid #D7D7D1;
+}
+
+#content .bullet {
+	margin-top:30px;
+	padding: 7px 30px 8px;
+	border-radius:3px;
+}
+#content .bullet:hover {
+	background-color:#47a447;
+	border-color:#398439;
+	color:#FCFCFC;
+}
+.bullet-fa{
+	margin-top:25px;
+}
+
+
+.info-box {
+	font-size: 20px;
+	color: #E6E6E6;
+	padding-bottom: 35px;
+
+}
+#info {
+	width:50%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.git {
+	color:#4495E0;
+}
+.git:hover {
+	color:#6AAEED;
+}
