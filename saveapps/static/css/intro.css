@@ -1,88 +1,69 @@
-@import url('http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300|Source+Sans+Pro:400|Imprima:800');
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
 
 body {
-	background-color: #121222;
+    background: #C1F0D5;
+    font: 14pt/1.6 "Source Sans Pro", Helvetica, sans-serif;
+    box-sizing: border-box;
+    text-align: center;
+    color: #244;
 }
-#try {
-	margin-top:50px;
-	text-align:center;
-	margin-bottom:50px;
+
+a {
+    color: #2e44b5;
 }
+
+h1.logo {
+    display: inline-block;
+    padding: 1px 10px 2px;
+    text-transform: uppercase;
+    font-size: 18pt;
+    border: 1px dashed rgba(59, 75, 155, 0.43);
+    background: rgba(0,0,0,0.05);
+}
+
+.container {
+    text-align: left;
+    margin: 0 auto;
+    width: 600px;
+    padding: 35px 0;
+}
+
+.top-box {
+    padding-bottom: 40px;
+}
+
+.top-box p {
+    width: 400px;
+}
+
 .try-button {
-	position:relative;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
+    float: right;
 	box-sizing: border-box;
-	background: #47a447;
-	border-radius:2px;
-	font-size: 18px;
-	font-weight: normal;
+    background: #5D47A4;
+    background: -webkit-linear-gradient(270deg, #7676FC, #9022F6);
+    background: -moz-linear-gradient(270deg, #7676FC, #9022F6);
+	border-radius: 4px;
 	color: #FCFCFC;
-	font-weight: 500;
-	font-family: "Imprima", Helvetica, Arial, sans-serif;
+	font-weight: 600;
 	padding: 18px 40px 18px;
-	-webkit-transition: background-color ease-in-out 0.3s;
-	transition: background-color ease-in-out 0.3s;
 	text-decoration:none;
-	display:inline-block;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgb(95, 71, 112);
 }
 
-.try-button:hover {
-	background-color: #278427;
+.try-button:active {
+    background: #4D3A8A;
 }
 
-.main-title {
-	position:relative;
-	text-align:center;
-	font-family:'Alegreya Sans SC';
-	font-weight:300;
-	color:#4495E0;
-	font-size:60px;
+.about {
+    padding: 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    font-size: 12pt;
+    color: rgba(30, 30, 30, 0.5);
 }
 
-#main{
-	position:static;
-	padding-bottom:1px;
-	padding-top:1px;
-	margin-bottom:4px;
-}
-.content-box, .info-box{
-	position: relative;
-	text-align: center;
-	font-weight: normal;
-	font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-	font-weight: 300;
-}
-
-.content-box {
-	font-size: 24px;
-	background: #EFEEDF;
-	color: #34495e;
-    padding-top: 35px;
-	padding-bottom: 35px;
-}
-
-#content .bullet:hover {
-	background-color:;
-	border-color:#398439;
-	color:#FCFCFC;
-}
-
-.info-box {
-	font-size: 20px;
-	color: #E6E6E6;
-	padding-bottom: 35px;
-}
-
-#info {
-	width:50%;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-#info a {
-	color:#4495E0;
-}
-#info a:hover {
-	color:#6AAEED;
+.tagline {
+    display: inline-block;
+    margin-left: 5px;
 }
