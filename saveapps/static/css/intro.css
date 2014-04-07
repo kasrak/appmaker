@@ -1,7 +1,13 @@
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
 
+html {
+    height: 100%;
+}
+
 body {
     background: #C1F0D5;
+    background: -webkit-linear-gradient(270deg, #C1F0D5, #F6F397);
+    background: -moz-linear-gradient(270deg, #C1F0D5, #F6F397);
     font: 14pt/1.6 "Source Sans Pro", Helvetica, sans-serif;
     box-sizing: border-box;
     text-align: center;
