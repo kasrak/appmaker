@@ -20,15 +20,9 @@
     <link rel="stylesheet" href="static/lib/codemirror/codemirror.css">
     <script src="static/lib/codemirror/javascript.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
-
-    <style type="text/css">
-      .CodeMirror {border: 1px solid black;}
-      .lint-error {font-family: arial; font-size: 100%; background: #ffa; color: #000; padding: 2px 10px 3px; }
-    </style>
-
 </head>
 <body>
-    <div id="section-toolbar" style="padding:30px;">
+    <div id="section-toolbar">
 
         <div class="btn-group">
             <button class="btn btn-primary run">
@@ -51,8 +45,12 @@
             </button>
         </div>
 
-        <a href="/edit/121" style="float:right; margin: -10px 15px 0 0;">Example app</a>
-	<span style="float:right; margin: -10px 15px 0 0;">Only works in Chrome right now</span>
+        <a href="/edit/121" class="toolbar-msg">
+            Example app
+        </a>
+        <span class="toolbar-msg">
+            Only works in Chrome right now
+        </span>
     </div>
 
     <div id="section-sidebar">
@@ -60,16 +58,20 @@
         <div id="create-elements">
             <h3>Elements</h3>
 
-            <div class="draggable btn btn-default btn-lg" draggable="true" data-element-type="button">
+            <div class="draggable btn btn-default btn-lg" draggable="true"
+                data-element-type="button">
                 Button <i class="fa fa-square"></i>
             </div>
-            <div class="draggable btn btn-default btn-lg" draggable="true" data-element-type="label">
+            <div class="draggable btn btn-default btn-lg" draggable="true"
+                data-element-type="label">
                 Label <i class="fa fa-font"></i>
             </div>
-            <div class="draggable btn btn-default btn-lg" draggable="true" data-element-type="image">
+            <div class="draggable btn btn-default btn-lg" draggable="true"
+                data-element-type="image">
                 Image <i class = "fa fa-picture-o"></i>
             </div>
-            <div class="draggable btn btn-default btn-lg" draggable="true" data-element-type="text">
+            <div class="draggable btn btn-default btn-lg" draggable="true"
+                data-element-type="text">
                 Text Input <i class = "fa fa-pencil"></i>
             </div>
         </div>
@@ -97,7 +99,6 @@
         <div id="section-code">
         </div>
     </div>
-
 
 </body>
 </html>

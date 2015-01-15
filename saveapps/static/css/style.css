@@ -1,4 +1,4 @@
-body {
+ody {
     background: #fafafa;
     padding: 0;
     margin: 0;
@@ -11,7 +11,7 @@ button, input, select, textarea {
 }
 
 #section-toolbar {
-    padding: 20px;
+    padding: 30px;
     background: #222;
     color: #fafafa;
     height: 20px;
@@ -32,6 +32,11 @@ button, input, select, textarea {
     right: 8px;
     width: 100px;
     margin-top: 5px;
+}
+
+#section-toolbar .toolbar-msg {
+    float: right;
+    margin: -10px 15px 0 0;
 }
 
 #section-sidebar {
@@ -145,4 +150,15 @@ img.element {
 
 #app-js-code {
     display:none;
+}
+
+.CodeMirror {
+    border: 1px solid black;
+}
+
+.lint-error {
+    font: inherit;
+    background: #ffa;
+    color: #000;
+    padding: 2px 10px 3px;
 }
