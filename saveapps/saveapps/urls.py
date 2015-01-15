@@ -1,14 +1,10 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'saveapps.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-    url (r'^/*$', 'saver.views.Intro'),
-    url (r'^app/*$', 'saver.views.Display'),
-    url (r'^upload/*$', 'saver.views.ImageUpload'),
-    url (r'^edit/(\d+)*$', 'saver.views.EditApp'),
-    url (r'^(\d+)*$', 'saver.views.ViewApp'),
-    url(r'^save', 'saver.views.SaveContent'),
+    url (r'^/*$', 'saveapps.views.Intro'),
+    url (r'^app/*$', 'saveapps.views.Display'),
+    url (r'^upload/*$', 'saveapps.views.ImageUpload'),
+    url (r'^edit/(\d+)*$', 'saveapps.views.EditApp'),
+    url (r'^(\d+)*$', 'saveapps.views.ViewApp'),
+    url(r'^save', 'saveapps.views.SaveContent'),
 )
