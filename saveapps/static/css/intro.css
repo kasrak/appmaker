@@ -5,9 +5,7 @@ html {
 }
 
 body {
-    background: #C1F0D5;
-    background: -webkit-linear-gradient(270deg, #C1F0D5, #F6F397);
-    background: -moz-linear-gradient(270deg, #C1F0D5, #F6F397);
+    background: #ECF0EE;
     font: 14pt/1.6 "Source Sans Pro", Helvetica, sans-serif;
     box-sizing: border-box;
     text-align: center;
@@ -36,10 +34,12 @@ h1.logo {
 
 .top-box {
     padding-bottom: 40px;
+    font-size: 18pt;
 }
 
 .top-box p {
-    width: 400px;
+    width: 345px;
+    text-align: justify;
 }
 
 .try-button {
@@ -56,6 +56,7 @@ h1.logo {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     border: 1px solid rgb(95, 71, 112);
+    margin-left: 10px;
 }
 
 .try-button:active {
@@ -65,11 +66,6 @@ h1.logo {
 .about {
     padding: 5px;
     border-top: 1px solid rgba(0, 0, 0, 0.07);
-    font-size: 12pt;
     color: rgba(30, 30, 30, 0.5);
 }
 
-.tagline {
-    display: inline-block;
-    margin-left: 5px;
-}
