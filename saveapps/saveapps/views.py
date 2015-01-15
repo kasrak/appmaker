@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -78,7 +78,7 @@ def get_next_file_number():
 def make_html(html, js_url, file_num):
     # Raw
     with open(new_file_name(file_num, 'txt')[0], 'w') as f:
-        f.write(html)
+        f.write(html.encode('utf-8'))
 
     # HTML
     rendered = render_to_string('app.html', {
@@ -89,14 +89,14 @@ def make_html(html, js_url, file_num):
 
     name, url = new_file_name(file_num, 'html')
     with open(name, 'w') as f:
-        f.write(rendered)
+        f.write(rendered.encode('utf-8'))
 
     return url
 
 def make_js(js, file_num):
     name, url = new_file_name(file_num, 'js')
     with open(name, 'w') as f:
-        f.write(js)
+        f.write(js.encode('utf-8'))
     return url
 
 def new_file_name(num, ext):
